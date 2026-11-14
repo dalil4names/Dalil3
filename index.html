@@ -315,7 +315,21 @@ body{background:transparent!important}
 .banner .row{z-index:4}
 .htitle{margin:-46px 0 8px}
 .hbanner{padding-bottom:50px}
+
+/* ===== v2.9 update notices ===== */
+.upd{position:fixed;left:12px;right:12px;top:max(10px,env(safe-area-inset-top));max-width:536px;margin:0 auto;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:20px;background:linear-gradient(140deg,#16302a,#2c5646);color:#fff;border:1.5px solid #d8b46a;box-shadow:0 12px 34px #0006;transform:translateY(-140%);transition:transform .45s cubic-bezier(.2,.9,.3,1.1)}
+.upd.on{transform:none}
+.upd .us{color:#f0d79a;font-size:18px;animation:tw 2.6s ease-in-out infinite}
+.upd .ut{flex:1;font-size:14.5px;font-weight:700}
+.upd .ut b{color:#f0d79a}
+.upd button{height:38px;padding:0 14px;border-radius:13px;font-weight:800;font-size:14px;background:linear-gradient(135deg,#f4dfa6,#d8b46a);color:#2a1d06}
+.upd button#updX{width:38px;padding:0;background:#ffffff1f;color:#fff;font-size:20px}
+.wnl{margin:6px 6px 14px;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.wnl li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;line-height:1.7;padding:11px 13px;border-radius:16px;background:#fff;border:1.5px solid #ece0c0}
+.wnl li::before{content:"✦";color:#d8b46a;flex:none;margin-top:1px}
+.wnst{height:34px;margin:6px 0 4px}
 </style>
+<meta name="app-version" content="2.9">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -341,7 +355,7 @@ body{background:transparent!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 2.8</div>
+  <div class="ver">الإصدار 2.9</div>
 </section>
 
 <!-- SEARCH -->
@@ -381,6 +395,11 @@ body{background:transparent!important}
     <div id="dbStat"></div>
   </div>
   <div class="panel">
+    <h3>الإصدار</h3>
+    <div class="stat"><span>إصدار التطبيق</span><span>2.9</span></div>
+    <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
+  </div>
+  <div class="panel">
     <h3>إضافة قاعدة بيانات</h3>
     <p>اختر ملف إكسل (.xlsx) جديداً، وسيُحذف الملف القديم ويُستبدل به. يجب أن يحتوي الملف على عمودي «الرقم العسكري» و«الاسم». الصور تُقرأ من الأعمدة التي عنوانها «صورة …» سواء كانت مدرجة داخل الملف أو روابط.</p>
     <button class="btn2" id="pick">اختيار ملف إكسل</button>
@@ -401,6 +420,8 @@ body{background:transparent!important}
 <div class="cm" id="cm"><div class="cm-sheet"><div class="handle"></div><h3>ما الذي تريد نسخه؟</h3>
 <div class="cm-quick"><button data-q="basic">الأساسية</button><button data-q="all">الكل</button><button data-q="none">إلغاء الكل</button></div>
 <div class="cm-list" id="cmList"></div><div class="cm-foot"><button class="cm-go" id="cmGo">نسخ</button></div></div></div>
+<div class="upd" id="upd"><span class="us">✦</span><span class="ut">إصدار جديد <b id="updV"></b> متاح</span><button id="updGo">تحديث الآن</button><button id="updX" aria-label="إغلاق">×</button></div>
+<div class="cm" id="wn"><div class="cm-sheet"><div class="handle"></div><div class="hstars dk wnst"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></div><h3 id="wnT" style="text-align:center"></h3><ul class="wnl" id="wnL"></ul><div class="cm-foot"><button class="cm-go" id="wnOk">حسناً</button></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -634,13 +655,13 @@ function setDB(d){
   for(const r of d.records){ const k=norm(r.id); if(k&&!INDEX.has(k))INDEX.set(k,r); r._id=k; r._w=nameNorm(r.name).split(' ').filter(Boolean); r._ns=r._w.join(''); }
   renderFoot(); renderStat(); if(UNLOCKED)renderTree();
 }
-const fmtDate=iso=>{try{return new Date(iso).toLocaleDateString('ar',{year:'numeric',month:'long',day:'numeric'})}catch(e){return ''}};
+const fmtDate=iso=>{if(!iso)return '—';try{return new Date(iso).toLocaleDateString('ar',{year:'numeric',month:'long',day:'numeric'})}catch(e){return ''}};
 function renderFoot(){ if(!DB.records.length){ $('#homeFoot').innerHTML='<div class="emptyhint"><b>لم تُضف قاعدة بيانات بعد</b><span>أضف ملف الإكسل مرة واحدة ليعمل البحث والهيكلية.</span><button class="btn2" onclick="go(\'settings\')">إضافة قاعدة بيانات</button></div>'; return; } $('#homeFoot').innerHTML='قاعدة البيانات: <span>'+esc(DB.name)+'</span><br>عدد السجلات: <span>'+DB.records.length+'</span>'; }
 function renderStat(){
   $('#dbStat').innerHTML=
    '<div class="stat"><span>الملف</span><span>'+esc(DB.name)+'</span></div>'+
    '<div class="stat"><span>عدد السجلات</span><span>'+DB.records.length+'</span></div>'+
-   (DB.photos?'<div class="stat"><span>الصور الشخصية</span><span>'+DB.photos+'</span></div>':'')+(DB.accts?'<div class="stat"><span>سجلات فيها صور حساب</span><span>'+DB.accts+'</span></div>':'')+'<div class="stat"><span>الأوراق</span><span style="text-align:left;max-width:60%">'+esc((DB.sheets||[]).join('، '))+'</span></div>'+
+   (DB.photos?'<div class="stat"><span>الصور الشخصية</span><span>'+DB.photos+'</span></div>':'')+(DB.accts?'<div class="stat"><span>سجلات فيها صور حساب</span><span>'+DB.accts+'</span></div>':'')+'<div class="stat"><span>الأوراق</span><span style="text-align:left;max-width:60%">'+esc(((DB.sheets||[]).join('، ')||'—'))+'</span></div>'+
    '<div class="stat"><span>آخر تحديث</span><span>'+esc(fmtDate(DB.updated))+'</span></div>';
 }
 
@@ -934,6 +955,32 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setT
   for(let i=0;i<16;i++){ const e=document.createElement('i'); const sz=7+Math.round(rnd()*11);
     e.style.cssText='left:'+(rnd()*96).toFixed(1)+'%;top:'+(rnd()*96).toFixed(1)+'%;--s:'+sz+'px;--d:'+(5+rnd()*5).toFixed(1)+'s;--dl:'+(rnd()*8).toFixed(1)+'s';
     m.appendChild(e); } })();
+
+/* ---------- updates ---------- */
+const VERSION='2.9';
+const CHANGES={'2.9':['إشعار داخل التطبيق عند توفر إصدار جديد، مع زر «تحديث الآن».','تظهر هذه النافذة «ما الجديد» مرة واحدة بعد كل تحديث.','زر «التحقق من وجود تحديث» في الإعدادات.']};
+const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
+let lastCheck=0;
+async function checkUpdate(manual){
+  if(!/^https?:/.test(location.protocol)){ if(manual)toast('التحقق يعمل عند فتح التطبيق من رابط'); return; }
+  lastCheck=Date.now();
+  try{
+    const r=await fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'}); const tx=await r.text();
+    const m=/name="app-version" content="([\d.]+)"/.exec(tx); if(!m)return;
+    if(verCmp(m[1],VERSION)>0){ $('#updV').textContent=m[1]; $('#upd').classList.add('on'); }
+    else if(manual)toast('أنت على أحدث إصدار ('+VERSION+')');
+  }catch(e){ if(manual)toast('تعذّر التحقق، تأكد من الاتصال بالإنترنت'); }
+}
+$('#updGo').addEventListener('click',()=>location.reload());
+$('#updX').addEventListener('click',()=>$('#upd').classList.remove('on'));
+$('#chkUpd').addEventListener('click',()=>checkUpdate(true));
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&Date.now()-lastCheck>5*60*1000)checkUpdate(false); });
+setInterval(()=>checkUpdate(false),30*60*1000); setTimeout(()=>checkUpdate(false),3000);
+$('#wnOk').addEventListener('click',()=>$('#wn').classList.remove('on'));
+$('#wn').addEventListener('click',e=>{ if(e.target.id==='wn')$('#wn').classList.remove('on'); });
+(function(){ let last=null; try{last=localStorage.getItem('dalil_ver')}catch(e){}
+  try{localStorage.setItem('dalil_ver',VERSION)}catch(e){}
+  if(last&&last!==VERSION&&CHANGES[VERSION]){ $('#wnT').textContent='تم التحديث إلى الإصدار '+VERSION; $('#wnL').innerHTML=CHANGES[VERSION].map(x=>'<li>'+esc(x)+'</li>').join(''); setTimeout(()=>$('#wn').classList.add('on'),900); } })();
 if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){ addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
 loadDB().then(d=>{setDB(d);show()});
 </script>
