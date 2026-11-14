@@ -359,8 +359,42 @@ body{background:transparent!important}
 .lb-box img{align-self:center;max-width:100%;width:auto;height:auto;max-height:calc(100vh - 150px)}
 .lb.cap .lb-box img{max-height:calc(100vh - 235px)}
 .lb-top{position:static;transform:none;width:100%;max-width:none;bottom:auto}
+
+/* ===== v3.8 press feedback ===== */
+button{-webkit-tap-highlight-color:transparent;transition:transform .12s,filter .12s,box-shadow .2s}
+button:active{transform:scale(.94);filter:brightness(.92)}
+button.tap{animation:tapf .45s ease-out}
+@keyframes tapf{0%{box-shadow:0 0 0 0 #d8b46aee;transform:scale(.93)}60%{box-shadow:0 0 0 12px #d8b46a00;transform:scale(1.03)}100%{box-shadow:0 0 0 0 #d8b46a00;transform:scale(1)}}
+.toast{top:22px;bottom:auto;transform:translate(-50%,-20px);z-index:99999;background:linear-gradient(135deg,#1f5c46,#2f7d5e);border:1.5px solid #d8b46a;box-shadow:0 10px 30px #0005;padding:12px 24px;font-size:15px}
+.toast.on{transform:translate(-50%,0)}
+.toast.ok::before{content:"✓ ";color:#f4dfa6}
+
+/* ===== v3.9 one-line toast with app icon ===== */
+.toast{display:flex;align-items:center;gap:10px;white-space:nowrap;max-width:94vw;padding:8px 20px 8px 10px;direction:rtl}
+.toast img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1.5px solid #d8b46a;flex:none;order:2}
+.toast span{overflow:hidden;text-overflow:ellipsis;order:1}
+.toast.ok::before{content:none}
+.toast.ok span::before{content:"✓ ";color:#f4dfa6}
+
+/* ===== v4.0 logo covers toast ===== */
+.toast{padding:12px 26px;background-color:#143d2e;background-size:cover;background-position:center;overflow:hidden;min-width:200px;justify-content:center}
+.toast img{display:none}
+.toast span{text-shadow:0 1px 6px #000,0 0 3px #000;font-weight:800}
+
+/* ===== v4.1 big circle logo at left, as tall as toast ===== */
+.toast{padding:0 22px 0 0;gap:14px;background:linear-gradient(135deg,#1f5c46,#2f7d5e);height:54px;overflow:hidden;justify-content:flex-start;min-width:0}
+.toast img{display:block;order:2;height:100%;width:54px;border:none;border-left:1.5px solid #d8b46a;border-radius:50%;margin:0;object-fit:cover}
+.toast span{order:1;text-shadow:none;font-weight:800;padding-right:8px}
+
+/* ===== v4.2 toast uses home-banner background ===== */
+.toast{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09' stroke-width='1.2'%3E%3Cpath d='M28 4l6 14 14-6-6 14 14 6-14 6 6 14-14-6-6 14-6-14-14 6 6-14-14-6 14-6-6-14 14 6z'/%3E%3C/g%3E%3C/svg%3E"),radial-gradient(300px 220px at 50% 38%,#3f7560 0,transparent 70%),linear-gradient(150deg,#122a22 0%,#22493a 55%,#33614f 100%);background-size:56px 56px,auto,auto;border:1.5px solid #d8b46a}
+
+/* ===== v4.3 bigger toast text ===== */
+.toast{height:62px;font-size:18px}
+.toast img{width:62px}
+.toast span{font-size:18px}
 </style>
-<meta name="app-version" content="3.7">
+<meta name="app-version" content="4.3">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -386,7 +420,7 @@ body{background:transparent!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 3.7</div>
+  <div class="ver">الإصدار 4.3</div>
 </section>
 
 <!-- SEARCH -->
@@ -427,7 +461,7 @@ body{background:transparent!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>3.7</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>4.3</span></div>
     <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
   </div>
   <div class="panel">
@@ -453,7 +487,7 @@ body{background:transparent!important}
 <div class="cm-list" id="cmList"></div><div class="cm-foot"><button class="cm-go" id="cmGo">نسخ</button></div></div></div>
 <div class="upd" id="upd"><span class="us">✦</span><span class="ut">إصدار جديد <b id="updV"></b> متاح</span><button id="updGo">تحديث الآن</button><button id="updX" aria-label="إغلاق">×</button></div>
 <div class="cm" id="wn"><div class="cm-sheet"><div class="handle"></div><div class="hstars dk wnst"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></div><h3 id="wnT" style="text-align:center"></h3><ul class="wnl" id="wnL"></ul><div class="cm-foot"><button class="cm-go" id="wnOk">حسناً</button></div></div></div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast"><span id="toastT"></span><img id="toastI" alt=""></div>
 
 <script>
 const DEFAULT_DB = {"name": "لا توجد قاعدة بيانات", "updated": "", "records": [], "sheets": []};
@@ -833,7 +867,7 @@ async function downloadLB(){
   catch(e){ window.open(LB.src,'_blank'); toast('افتح الصورة واحفظها من المتصفح'); return; }
   const a=document.createElement('a'); a.href=href; a.download=LB.fname; document.body.appendChild(a); a.click(); a.remove();
   if(tmp)setTimeout(()=>URL.revokeObjectURL(href),4000);
-  toast('جارٍ التحميل، تجده في التنزيلات');
+  toast('بدأ التحميل في التنزيلات');
 }
 $('#lbDl').addEventListener('click',e=>{e.stopPropagation();downloadLB()});
 $('#lbX').addEventListener('click',e=>{e.stopPropagation();closeLB()});
@@ -1004,7 +1038,9 @@ $('#reset').addEventListener('click',()=>{
   clearTimeout(rstArm); rstArm=0; b.textContent=lbl; clearDB(); setDB(DEFAULT_DB); msg(empty?'تم حذف قاعدة البيانات.':'تمت العودة إلى الملف الأصلي.','ok');
 });
 
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2400)}
+let _tt;function toast(t){const e=$('#toast');$('#toastT').textContent=t;const li=document.querySelector('.crest img');if(li&&!$('#toastI').src)$('#toastI').src=li.src;e.classList.toggle('ok',/^تم/.test(t));e.classList.add('on');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('on'),2400)}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b)return;b.classList.remove('tap');void b.offsetWidth;b.classList.add('tap');setTimeout(()=>b.classList.remove('tap'),480);if(navigator.vibrate)try{navigator.vibrate(15)}catch(_){}},true);
+
 
 
 /* sparkles */
@@ -1015,8 +1051,8 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setT
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='3.7';
-const CHANGES={'3.7':['أزرار «تحميل» و«إغلاق» في عارض الصورة صارت أسفل الصورة مباشرة.']};
+const VERSION='4.3';
+const CHANGES={'4.3':['تكبير خط الإشعار.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
