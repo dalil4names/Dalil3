@@ -344,8 +344,23 @@ body{background:transparent!important}
 .lb.cap img{max-height:calc(100vh - 270px)}
 .lb{background:rgba(8,16,12,.95)!important}
 .person .pa{overflow:hidden;width:44px;height:44px;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #e6cf98}.person .pa img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}
+
+/* ===== v3.6 viewer buttons at the bottom ===== */
+.lb{padding:20px 20px 0}
+.lb-top{position:absolute;left:50%;transform:translateX(-50%);width:calc(100% - 40px);bottom:max(16px,env(safe-area-inset-bottom))}
+.lbb{height:54px;font-size:17px;box-shadow:0 8px 24px #0006}
+.lb img{max-height:calc(100vh - 180px)}
+.lb.cap img{max-height:calc(100vh - 262px)}
+.lbb.pri{background:linear-gradient(135deg,#f4dfa6,#d8b46a);color:#2a1d06}
+
+/* ===== v3.7 buttons directly under the image ===== */
+.lb{padding:20px;justify-content:center;gap:14px}
+.lb-box{display:flex;flex-direction:column;align-items:stretch;gap:14px;max-width:100%;min-width:min(300px,100%)}
+.lb-box img{align-self:center;max-width:100%;width:auto;height:auto;max-height:calc(100vh - 150px)}
+.lb.cap .lb-box img{max-height:calc(100vh - 235px)}
+.lb-top{position:static;transform:none;width:100%;max-width:none;bottom:auto}
 </style>
-<meta name="app-version" content="3.5">
+<meta name="app-version" content="3.7">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -371,7 +386,7 @@ body{background:transparent!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 3.5</div>
+  <div class="ver">الإصدار 3.7</div>
 </section>
 
 <!-- SEARCH -->
@@ -412,7 +427,7 @@ body{background:transparent!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>3.5</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>3.7</span></div>
     <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
   </div>
   <div class="panel">
@@ -432,7 +447,7 @@ body{background:transparent!important}
 </section>
 </div>
 
-<div class="lb" id="lb"><div class="lb-top"><button id="lbDl" class="lbb pri">تحميل</button><button id="lbX" class="lbb">إغلاق</button></div><div class="lb-cap" id="lbCap" hidden></div><img id="lbImg" alt=""></div>
+<div class="lb" id="lb"><div class="lb-cap" id="lbCap" hidden></div><div class="lb-box"><img id="lbImg" alt=""><div class="lb-top"><button id="lbDl" class="lbb pri">تحميل</button><button id="lbX" class="lbb">إغلاق</button></div></div></div>
 <div class="cm" id="cm"><div class="cm-sheet"><div class="handle"></div><h3>ما الذي تريد نسخه؟</h3>
 <div class="cm-quick"><button data-q="basic">الأساسية</button><button data-q="all">الكل</button><button data-q="none">إلغاء الكل</button></div>
 <div class="cm-list" id="cmList"></div><div class="cm-foot"><button class="cm-go" id="cmGo">نسخ</button></div></div></div>
@@ -1000,8 +1015,8 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setT
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='3.5';
-const CHANGES={'3.5':['تظهر الصورة الشخصية بجانب كل اسم في الهيكلية بدل الدائرة.','قسم «القياسات» صار قبل «الحساب المالي».','تغيير «كم جزء تحفظ من القرآن؟» إلى «عدد الأجزاء التي تم حفظها».']};
+const VERSION='3.7';
+const CHANGES={'3.7':['أزرار «تحميل» و«إغلاق» في عارض الصورة صارت أسفل الصورة مباشرة.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
