@@ -328,8 +328,13 @@ body{background:transparent!important}
 .wnl li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;line-height:1.7;padding:11px 13px;border-radius:16px;background:#fff;border:1.5px solid #ece0c0}
 .wnl li::before{content:"✦";color:#d8b46a;flex:none;margin-top:1px}
 .wnst{height:34px;margin:6px 0 4px}
+
+/* ===== v3.0 photo fit ===== */
+.pphoto{padding:0;overflow:hidden;position:relative}
+.pphoto img{position:absolute;inset:0;width:100%;height:100%;max-width:none;border-radius:50%;object-fit:cover;object-position:50% 22%}
+.pphoto .zb{display:none}
 </style>
-<meta name="app-version" content="2.9">
+<meta name="app-version" content="3.0">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -355,7 +360,7 @@ body{background:transparent!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 2.9</div>
+  <div class="ver">الإصدار 3.0</div>
 </section>
 
 <!-- SEARCH -->
@@ -396,7 +401,7 @@ body{background:transparent!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>2.9</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>3.0</span></div>
     <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
   </div>
   <div class="panel">
@@ -709,7 +714,7 @@ function showTree(keep){
 }
 
 /* ---------- person page ---------- */
-function lvlLabel(v,i,r){ if(/^\s*سرية/.test(v))return 'السرية'; if(/^\s*جماعة/.test(v))return 'الجماعة'; return (r&&r.pl&&r.pl[i])||('المستوى '+(i+2)); }
+function lvlLabel(v,i,r){ return (r&&r.pl&&r.pl[i])||('المستوى '+(i+2)); }
 let CUR=null, objURLs=[], BACKSCROLL=0, LB=null;
 const cleanLabel=l=>String(l).replace(/\([^)]*\)/g,'').replace(/[:：]\s*$/,'').replace(/\s+/g,' ').trim();
 const GROUPS=[
@@ -768,7 +773,7 @@ async function renderPerson(r){
   $('#pBody').innerHTML='<div class="pbody"><div class="banner"><div class="row"><button class="bb" onclick="goBack()" aria-label="رجوع"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><span class="bt">بطاقة الشخص</span><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></span></div><i class="gl"></i><i class="sheen"></i></div><div class="phead"><button class="pphoto" id="pPhoto" disabled>'+ini+'</button><h1 class="pname">'+esc(r.name)+'</h1>'+(r.job?'<p class="pjob">'+esc(r.job)+'</p>':'')+'<div class="pchips"><span class="pchip">'+esc(r.id)+'</span>'+sheetTag+'</div></div>'+G.map(sec).join('')+sec(OTHER)+'</div>';
   // photo
   const src=await imgSrc(r.ph)||r.img||null;
-  if(src&&CUR===r){ const b=$('#pPhoto'); if(b){ b.disabled=false; b.classList.add('zoom'); b.innerHTML='<img alt="" src="'+esc(src)+'"><span class="zb">'+ICON_ZOOM+'</span>'; b.dataset.src=src; } }
+  if(src&&CUR===r){ const b=$('#pPhoto'); if(b){ b.disabled=false; b.classList.add('zoom'); b.innerHTML='<img alt="" src="'+esc(src)+'">'; b.dataset.src=src; } }
 }
 function openLB(src,fname){ LB={src,fname}; $('#lbImg').src=src; $('#lb').classList.add('on'); }
 function closeLB(){ $('#lb').classList.remove('on'); $('#lbImg').removeAttribute('src'); }
@@ -957,8 +962,8 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setT
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='2.9';
-const CHANGES={'2.9':['إشعار داخل التطبيق عند توفر إصدار جديد، مع زر «تحديث الآن».','تظهر هذه النافذة «ما الجديد» مرة واحدة بعد كل تحديث.','زر «التحقق من وجود تحديث» في الإعدادات.']};
+const VERSION='3.0';
+const CHANGES={'3.0':['أُزيلت العدسة من فوق الصورة وضُبطت الصورة داخل إطارها الدائري.','تظهر المستويات بأسمائها كما في الملف (المستوى 3، المستوى 4، المستوى 5…) بدل «السرية» و«الجماعة».']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
