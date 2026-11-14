@@ -343,8 +343,9 @@ body{background:transparent!important}
 .lb img{max-height:calc(100vh - 190px)}
 .lb.cap img{max-height:calc(100vh - 270px)}
 .lb{background:rgba(8,16,12,.95)!important}
+.person .pa{overflow:hidden;width:44px;height:44px;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #e6cf98}.person .pa img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}
 </style>
-<meta name="app-version" content="3.4">
+<meta name="app-version" content="3.5">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -370,7 +371,7 @@ body{background:transparent!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 3.4</div>
+  <div class="ver">الإصدار 3.5</div>
 </section>
 
 <!-- SEARCH -->
@@ -411,7 +412,7 @@ body{background:transparent!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>3.4</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>3.5</span></div>
     <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
   </div>
   <div class="panel">
@@ -746,14 +747,14 @@ function showTree(keep){
 /* ---------- person page ---------- */
 function lvlLabel(v,i,r){ return (r&&r.pl&&r.pl[i])||('المستوى '+(i+2)); }
 let CUR=null, objURLs=[], BACKSCROLL=0, LB=null;
-const cleanLabel=l=>String(l).replace(/\([^)]*\)/g,'').replace(/[:：]\s*$/,'').replace(/\s+/g,' ').trim();
+const cleanLabel=l=>{ const s=String(l).replace(/\([^)]*\)/g,'').replace(/[:：]\s*$/,'').replace(/\s+/g,' ').trim(); return (/جزء/.test(s)&&/تحفظ|حفظ/.test(s))?'عدد الأجزاء التي تم حفظها':s; };
 const GROUPS=[
  {t:'الهوية',re:/^(اللقب|تاريخ الميلاد|اسم الام|الرقم الوطني|محل القيد|الجنس)/},
  {t:'الموقع الوظيفي',re:/(الوظيفه|الاختصاص|التخصص|المهمه|الصفه|الانتساب|الرتبه|الوحده)/},
  {t:'التواصل والسكن',re:/(التواصل|السكن|الهاتف|الجوال|البريد|العنوان)/},
  {t:'الحالة الاجتماعية والصحية',re:/(الاجتماعيه|الاولاد|الصحي|الاصابه|زمره)/},
  {t:'القياسات',re:/قياس/},
- {t:'التعليم والخبرات',re:/(التحصيل|المؤهل|الدراسه|شهاده|الخبرات|الدورات|مهنه|القران|جزء|مهارات)/},
+ {t:'التعليم والخبرات',re:/(الاجزاء|التحصيل|المؤهل|الدراسه|شهاده|الخبرات|الدورات|مهنه|القران|جزء|مهارات)/},
  {t:'الحساب المالي',re:/(شام\s*كاش|حساب)/}
 ];
 const SEC_IC={
@@ -800,7 +801,7 @@ async function renderPerson(r){
   }).join('')+'</div></section>':'';
   const sheetTag=r.sheet&&/غير/.test(r.sheet)?'<span class="pchip w">'+esc(r.sheet)+'</span>':'';
   const ini=esc((r.name||'؟').trim().charAt(0));
-  $('#pBody').innerHTML='<div class="pbody"><div class="banner"><div class="row"><button class="bb" onclick="goBack()" aria-label="رجوع"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><span class="bt">بطاقة الشخص</span><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></span></div><i class="gl"></i><i class="sheen"></i></div><div class="phead"><button class="pphoto" id="pPhoto" disabled>'+ini+'</button><h1 class="pname">'+esc(r.name)+'</h1>'+(r.job?'<p class="pjob">'+esc(r.job)+'</p>':'')+'<div class="pchips"><span class="pchip">'+esc(r.id)+'</span>'+sheetTag+'</div></div>'+[0,1,2,3,5,6,4].map(i=>sec(G[i])).join('')+sec(OTHER)+'</div>';
+  $('#pBody').innerHTML='<div class="pbody"><div class="banner"><div class="row"><button class="bb" onclick="goBack()" aria-label="رجوع"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><span class="bt">بطاقة الشخص</span><span class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></span></div><i class="gl"></i><i class="sheen"></i></div><div class="phead"><button class="pphoto" id="pPhoto" disabled>'+ini+'</button><h1 class="pname">'+esc(r.name)+'</h1>'+(r.job?'<p class="pjob">'+esc(r.job)+'</p>':'')+'<div class="pchips"><span class="pchip">'+esc(r.id)+'</span>'+sheetTag+'</div></div>'+[0,1,2,3,5,4,6].map(i=>sec(G[i])).join('')+sec(OTHER)+'</div>';
   // photo
   const src=await imgSrc(r.ph)||r.img||null;
   if(src&&CUR===r){ const b=$('#pPhoto'); if(b){ b.disabled=false; b.classList.add('zoom'); b.innerHTML='<img alt="" src="'+esc(src)+'">'; b.dataset.src=src; } }
@@ -940,8 +941,8 @@ $('#q').addEventListener('paste',e=>{ const t=(e.clipboardData||window.clipboard
 
 /* ---------- tree ---------- */
 function renderTree(filter){
-  const f=norm(filter||''), box=$('#treeBox');
-  const recs=DB.records.filter(r=>!f||norm(r.name+' '+r.id+' '+r.job).includes(f));
+  const f=nameNorm(filter||''), box=$('#treeBox');
+  const recs=DB.records.filter(r=>!f||nameNorm(r.name+' '+r.id+' '+r.job).includes(f));
   if(!recs.length){box.innerHTML='<div class="empty">'+(DB.records.length?'لا توجد نتائج':'لا توجد بيانات. أضف قاعدة بيانات من الإعدادات.')+'</div>';return}
   const roots=new Map();
   for(const r of recs){
@@ -951,7 +952,7 @@ function renderTree(filter){
     node.people.push(r);
   }
   window._people=recs;
-  const person=r=>'<button class="person" data-id="'+esc(r.id)+'" data-i="'+recs.indexOf(r)+'"><span class="pa">'+esc((r.name||'؟').charAt(0))+'</span><span><b>'+esc(r.name)+'</b><small>'+esc(r.job||(r.f[0]?r.f[0][1]:''))+' · '+esc(r.id)+'</small></span></button>';
+  const person=r=>'<button class="person" data-id="'+esc(r.id)+'" data-i="'+recs.indexOf(r)+'"><span class="pa">'+(((r.ph&&(r.ph.t||r.ph.u))||r.img)?'<img alt="" loading="lazy" src="'+esc((r.ph&&(r.ph.t||r.ph.u))||r.img)+'">':esc((r.name||'؟').charAt(0)))+'</span><span><b>'+esc(r.name)+'</b><small>'+esc(r.job||(r.f[0]?r.f[0][1]:''))+' · '+esc(r.id)+'</small></span></button>';
   const draw=(node,depth)=>{
     let h='';
     if(node.people.length) h+='<div class="kids">'+node.people.map(person).join('')+'</div>';
@@ -999,8 +1000,8 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setT
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='3.4';
-const CHANGES={'3.4':['صيغة التاريخ صارت: يوم / شهر / سنة، مثل 29 / 10 / 1995.']};
+const VERSION='3.5';
+const CHANGES={'3.5':['تظهر الصورة الشخصية بجانب كل اسم في الهيكلية بدل الدائرة.','قسم «القياسات» صار قبل «الحساب المالي».','تغيير «كم جزء تحفظ من القرآن؟» إلى «عدد الأجزاء التي تم حفظها».']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
