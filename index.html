@@ -333,8 +333,18 @@ body{background:transparent!important}
 .pphoto{padding:0;overflow:hidden;position:relative}
 .pphoto img{position:absolute;inset:0;width:100%;height:100%;max-width:none;border-radius:50%;object-fit:cover;object-position:50% 22%}
 .pphoto .zb{display:none}
+
+/* ===== v3.1 lightbox caption ===== */
+.lb-cap{width:100%;max-width:560px;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:#fff;box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4.5px #ecdcb4;border:1.5px solid #d9c48f}
+.lb-cap .ct{flex:1;min-width:0}
+.lb-cap small{display:block;color:var(--mut);font-size:12.5px;font-weight:600;margin-bottom:2px}
+.lb-cap b{display:block;font-size:20px;font-weight:800;direction:ltr;text-align:right;letter-spacing:.5px;word-break:break-all}
+.lb-cap button{height:40px;padding:0 14px;border-radius:13px;font-weight:800;font-size:14px;background:var(--g);color:#fff;flex:none}
+.lb img{max-height:calc(100vh - 190px)}
+.lb.cap img{max-height:calc(100vh - 270px)}
+.lb{background:rgba(8,16,12,.95)!important}
 </style>
-<meta name="app-version" content="3.0">
+<meta name="app-version" content="3.1">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -360,7 +370,7 @@ body{background:transparent!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 3.0</div>
+  <div class="ver">الإصدار 3.1</div>
 </section>
 
 <!-- SEARCH -->
@@ -401,7 +411,7 @@ body{background:transparent!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>3.0</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>3.1</span></div>
     <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
   </div>
   <div class="panel">
@@ -421,7 +431,7 @@ body{background:transparent!important}
 </section>
 </div>
 
-<div class="lb" id="lb"><div class="lb-top"><button id="lbDl" class="lbb pri">تحميل</button><button id="lbX" class="lbb">إغلاق</button></div><img id="lbImg" alt=""></div>
+<div class="lb" id="lb"><div class="lb-top"><button id="lbDl" class="lbb pri">تحميل</button><button id="lbX" class="lbb">إغلاق</button></div><div class="lb-cap" id="lbCap" hidden></div><img id="lbImg" alt=""></div>
 <div class="cm" id="cm"><div class="cm-sheet"><div class="handle"></div><h3>ما الذي تريد نسخه؟</h3>
 <div class="cm-quick"><button data-q="basic">الأساسية</button><button data-q="all">الكل</button><button data-q="none">إلغاء الكل</button></div>
 <div class="cm-list" id="cmList"></div><div class="cm-foot"><button class="cm-go" id="cmGo">نسخ</button></div></div></div>
@@ -723,7 +733,7 @@ const GROUPS=[
  {t:'التواصل والسكن',re:/(التواصل|السكن|الهاتف|الجوال|البريد|العنوان)/},
  {t:'الحالة الاجتماعية والصحية',re:/(الاجتماعيه|الاولاد|الصحي|الاصابه|زمره)/},
  {t:'القياسات',re:/قياس/},
- {t:'التعليم والخبرات',re:/(شهاده|الخبرات|الدورات|مهنه|القران|جزء|مهارات)/},
+ {t:'التعليم والخبرات',re:/(التحصيل|المؤهل|الدراسه|شهاده|الخبرات|الدورات|مهنه|القران|جزء|مهارات)/},
  {t:'الحساب المالي',re:/(شام\s*كاش|حساب)/}
 ];
 const SEC_IC={
@@ -775,8 +785,12 @@ async function renderPerson(r){
   const src=await imgSrc(r.ph)||r.img||null;
   if(src&&CUR===r){ const b=$('#pPhoto'); if(b){ b.disabled=false; b.classList.add('zoom'); b.innerHTML='<img alt="" src="'+esc(src)+'">'; b.dataset.src=src; } }
 }
-function openLB(src,fname){ LB={src,fname}; $('#lbImg').src=src; $('#lb').classList.add('on'); }
-function closeLB(){ $('#lb').classList.remove('on'); $('#lbImg').removeAttribute('src'); }
+function openLB(src,fname,cap){
+  LB={src,fname}; const c=$('#lbCap');
+  if(cap&&cap.v){ c.innerHTML='<div class="ct"><small>'+esc(cap.l)+'</small><b>'+esc(cap.v)+'</b></div><button id="lbCopy">نسخ</button>'; c.hidden=false; $('#lb').classList.add('cap'); c.dataset.v=cap.v; }
+  else{ c.hidden=true; c.innerHTML=''; $('#lb').classList.remove('cap'); }
+  $('#lbImg').src=src; $('#lb').classList.add('on'); }
+function closeLB(){ $('#lb').classList.remove('on','cap'); $('#lbImg').removeAttribute('src'); }
 async function downloadLB(){
   if(!LB)return; let href=LB.src, tmp=false;
   try{ if(!/^(blob:|data:)/.test(href)){ const rs=await fetch(href); href=URL.createObjectURL(await rs.blob()); tmp=true; } }
@@ -787,13 +801,16 @@ async function downloadLB(){
 }
 $('#lbDl').addEventListener('click',e=>{e.stopPropagation();downloadLB()});
 $('#lbX').addEventListener('click',e=>{e.stopPropagation();closeLB()});
-$('#lb').addEventListener('click',e=>{ if(e.target.id==='lb')closeLB(); });
+$('#lb').addEventListener('click',e=>{ if(e.target.id==='lb')closeLB();
+  if(e.target.id==='lbCopy'){ e.stopPropagation(); const v=$('#lbCap').dataset.v||''; const ok=()=>toast('تم نسخ الرقم');
+    const fb=()=>{const a=document.createElement('textarea');a.value=v;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy')?ok():toast('تعذّر النسخ')}catch(_){toast('تعذّر النسخ')}a.remove()};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok,fb); else fb(); } });
 const safeName=s=>String(s).replace(/[\\/:*?"<>|]/g,' ').replace(/\s+/g,' ').trim();
 $('#pBody').addEventListener('click',async e=>{
   const p=e.target.closest('#pPhoto'); if(p&&p.dataset.src){ openLB(p.dataset.src,safeName(CUR.name)+'.jpg'); return; }
   const v=e.target.closest('[data-view]'); if(v){
     const w=v.dataset.view; const o=w==='acct'?((CUR.ax||[]).find(x=>/حساب|شام/.test(x.l))||(CUR.ax||[])[0]):(CUR.ax||[]).filter(x=>x!==((CUR.ax||[]).find(y=>/حساب|شام/.test(y.l))||(CUR.ax||[])[0]))[+w.slice(1)];
-    const s=await imgSrc(o); if(s)openLB(s,safeName(CUR.name)+' - '+cleanLabel(o.l||'صورة')+'.jpg'); else toast('تعذّر تحميل الصورة');
+    const s=await imgSrc(o); if(s){ const sf=w==='acct'?(CUR.f||[]).find(([l])=>/شام\s*كاش/.test(nameNorm(cleanLabel(l)))):null; openLB(s,safeName(CUR.name)+' - '+cleanLabel(o.l||'صورة')+'.jpg',sf?{l:cleanLabel(sf[0]),v:sf[1]}:null); } else toast('تعذّر تحميل الصورة');
   }
 });
 function copyItems(r){
@@ -962,8 +979,8 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setT
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='3.0';
-const CHANGES={'3.0':['أُزيلت العدسة من فوق الصورة وضُبطت الصورة داخل إطارها الدائري.','تظهر المستويات بأسمائها كما في الملف (المستوى 3، المستوى 4، المستوى 5…) بدل «السرية» و«الجماعة».']};
+const VERSION='3.1';
+const CHANGES={'3.1':['عمود «التحصيل العلمي» صار يظهر ضمن قسم «التعليم والخبرات».','عند فتح صورة الحساب يظهر رقم شام كاش المكتوب في الجدول أعلى الصورة، مع زر نسخ.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
