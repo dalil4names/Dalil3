@@ -433,8 +433,47 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
 .ftp{font-size:14px;line-height:2;margin:0 2px 12px;color:var(--txt);text-align:justify}
 .fth{font-size:15.5px;font-weight:800;margin:14px 2px 8px;color:#7a5a16}
 .updrow #chkUpd{flex:1.35;font-size:14px;white-space:nowrap}.updrow #featBtn{font-size:14px;white-space:nowrap}
+
+/* ===== v4.7 ===== */
+.updrow #chkUpd{background:#fff;color:#7a5a16;border:1.5px solid #d8b46a;box-shadow:none;flex:1;font-weight:800}
+.mnote{position:fixed;left:14px;right:14px;bottom:88px;z-index:17;max-width:532px;margin:0 auto;padding:12px 14px;border-radius:16px;background:#fff8e6;border:1.5px solid #d8b46a;color:#5c4210;font-size:14px;line-height:1.8;font-weight:700;text-align:center;box-shadow:0 10px 26px #1d2a2426;transform:translateY(20px);opacity:0;pointer-events:none;transition:transform .3s,opacity .3s}
+.mnote.on{transform:none;opacity:1}
+.mnote.shake{animation:shk .4s}
+@keyframes shk{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.mbar #mGo.dis{opacity:.45}
+#tree.selmode{padding-bottom:170px}
+
+/* ===== v4.8 ===== */
+.cm-row{position:relative}
+.dh{margin-inline-start:auto;width:44px;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;touch-action:none;cursor:grab;flex:none;margin-left:-8px;border-radius:12px}
+.dh i{display:block;width:20px;height:2.5px;border-radius:2px;background:#b99a4d}
+.cm-row.drag{background:#fbf0d2;box-shadow:0 8px 22px #1d2a2433;transform:scale(1.015);z-index:3;border-color:#d8b46a}
+.cm-t{flex:1}
+.ftv summary{cursor:default}
+.ftv ul{padding:0 30px 14px 16px;margin:0}
+.ftv li{margin-bottom:4px}
+.ftvh{padding:12px 14px 6px;font-weight:800;font-size:15px;color:#7a5a16}
+#ftBody>*{flex:none}
+
+/* ===== v4.9 clearer reorder ===== */
+.dh{background:#f6efdc;border:1.5px solid #e6cf98;width:46px;margin:6px 0 6px -6px}
+.dh i{background:#9c7a24}
+.dh:active{background:#ecd9a2}
+.cm-list.dragging{user-select:none;-webkit-user-select:none}
+.cm-list.dragging .cm-row:not(.drag){opacity:.62}
+.cm-row.drag{background:#fff3cc!important;border:2px solid #c9a24a!important;box-shadow:0 14px 34px #7a5a1640,0 0 0 4px #e8cf8f66;transform:scale(1.04);position:relative;z-index:5;opacity:1!important}
+.cm-row.drag .dh{background:#d8b46a;border-color:#b8923a}
+.cm-row.drag .dh i{background:#fff}
+.cm-row{transition:opacity .15s,box-shadow .15s,background .15s}
+/* 4.9 refinement */
+.dh,.dh:active,.cm-row.drag .dh{background:transparent!important;border:none!important;box-shadow:none}
+.dh{width:30px;margin:0 0 0 -4px;gap:4px}
+.dh i{width:17px;height:2px;background:#b99a4d}
+.cm-row.drag .dh i{background:#8a6a1c}
+.cm-row{transition:opacity .25s ease,box-shadow .25s ease,background .25s ease,transform .25s ease}
+.cm-row.drag{transition:box-shadow .25s ease,background .25s ease,transform .25s ease}
 </style>
-<meta name="app-version" content="4.6">
+<meta name="app-version" content="4.9">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -460,7 +499,7 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 4.6</div>
+  <div class="ver">الإصدار 4.9</div>
 </section>
 
 <!-- SEARCH -->
@@ -501,7 +540,7 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>4.6</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>4.9</span></div>
     <div class="updrow"><button class="btn3" id="chkUpd">التحقق من التحديثات</button><button class="btn3" id="featBtn">مميزات التطبيق</button></div>
   </div>
   <div class="panel">
@@ -522,7 +561,7 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
 </div>
 
 <div class="lb" id="lb"><div class="lb-cap" id="lbCap" hidden></div><div class="lb-box"><img id="lbImg" alt=""><div class="lb-top"><button id="lbDl" class="lbb pri">تحميل</button><button id="lbX" class="lbb">إغلاق</button></div></div></div>
-<div class="mbar" id="mbar"><button id="mGo">نسخ المعلومات</button><button id="mXl">مشاركة Excel</button><button id="mX">إلغاء</button></div>
+<div class="mnote" id="mNote">لا يمكن نسخ معلومات محدَّدة لأكثر من 10 أسماء. يمكن تصدير بيانات جميع المحدَّدين بصيغة Excel.</div><div class="mbar" id="mbar"><button id="mGo">نسخ المعلومات</button><button id="mXl">مشاركة Excel</button><button id="mX">إلغاء</button></div>
 <div class="cm" id="cm"><div class="cm-sheet"><div class="handle"></div><h3>ما الذي تريد نسخه؟</h3>
 <div class="cm-quick"><button data-q="basic">الأساسية</button><button data-q="all">الكل</button><button data-q="none">إلغاء الكل</button></div>
 <div class="cm-list" id="cmList"></div><div class="cm-foot"><button class="cm-go" id="cmGo">نسخ</button></div></div></div>
@@ -934,10 +973,16 @@ function copyItems(r){
 const BASIC=['الاسم الثلاثي','الرقم العسكري','مسمى العمل'];
 let CM=[];
 function loadSel(){ try{const s=JSON.parse(localStorage.getItem('dalil_copysel')||'null'); if(Array.isArray(s)&&s.length)return s}catch(e){} return BASIC; }
+
+function renderCM(){
+  const saved=loadSel(), sel=new Set(saved);
+  const idx=CM.map((x,i)=>i).sort((a,b)=>{const ia=saved.indexOf(CM[a].l),ib=saved.indexOf(CM[b].l); if(ia<0&&ib<0)return a-b; if(ia<0)return 1; if(ib<0)return -1; return ia-ib;});
+  $('#cmList').innerHTML=idx.map(i=>{const x=CM[i]; return '<label class="cm-row"><input type="checkbox" data-i="'+i+'"'+(sel.has(x.l)?' checked':'')+'><span class="tick"></span><span class="cm-t"><b>'+esc(x.l)+'</b>'+(x.v?'<small class="cv">'+esc(x.v)+'</small>':'')+'</span><span class="dh" aria-label="إعادة الترتيب"><i></i><i></i><i></i></span></label>';}).join('');
+}
 function updGo(){ const n=document.querySelectorAll('#cmList input:checked').length; const g=$('#cmGo'); g.textContent=n?((MULTI&&MULTI.mode==='xlsx'?'مشاركة ملف Excel (':'نسخ (')+n+')'):'اختر معلومة'; g.disabled=!n; g.style.opacity=n?1:.5; }
 $('#bCopy').addEventListener('click',()=>{
   if(!CUR)return; MULTI=false; $('#cm').querySelector('h3').textContent='ما الذي تريد نسخه؟'; CM=copyItems(CUR); const sel=new Set(loadSel());
-  $('#cmList').innerHTML=CM.map((x,i)=>'<label class="cm-row"><input type="checkbox" data-i="'+i+'"'+(sel.has(x.l)?' checked':'')+'><span class="tick"></span><span class="cm-t"><small>'+esc(x.l)+'</small><b>'+esc(x.v)+'</b></span></label>').join('');
+  renderCM();
   $('#cm').classList.add('on'); updGo();
 });
 $('#cm').addEventListener('click',e=>{
@@ -965,17 +1010,19 @@ $('#cmGo').addEventListener('click',()=>{
 });
 
 /* ---------- multi-select (long press) ---------- */
-let SEL=[], MULTI=false; const LP={t:null,x:0,y:0,fired:false}; const MAXSEL=10;
+let SEL=[], MULTI=false; const LP={t:null,x:0,y:0,fired:false}; const MAXSEL=10, MAXXL=300;
 function paintSel(){
   document.querySelectorAll('#treeBox .person').forEach(b=>b.classList.toggle('sel',SEL.includes(b.dataset.id)));
   const on=SEL.length>0; $('#mbar').classList.toggle('on',on); $('#tree').classList.toggle('selmode',on);
-  if(on)$('#mGo').textContent='نسخ معلومات لأكثر من واحد ('+SEL.length+')';
+  if(on)$('#mGo').textContent='نسخ المعلومات ('+SEL.length+')';
+  const over=SEL.length>MAXSEL; $('#mGo').classList.toggle('dis',over); $('#mNote').classList.toggle('on',on&&over);
+  if(on&&SEL.length===MAXSEL+1&&!paintSel._w){ paintSel._w=1; if(navigator.vibrate)try{navigator.vibrate([20,40,20])}catch(_){} } if(SEL.length<=MAXSEL)paintSel._w=0;
 }
 function clearSel(){ SEL=[]; MULTI=false; if(typeof paintSel==='function')paintSel(); }
 function toggleSel(id){
   const i=SEL.indexOf(id);
   if(i>=0)SEL.splice(i,1);
-  else{ if(SEL.length>=MAXSEL){ toast('الحد الأقصى '+MAXSEL+' أسماء'); return; } SEL.push(id); }
+  else{ if(SEL.length>=MAXXL){ toast('بلغ التحديد الحد الأقصى ('+MAXXL+' اسم)'); return; } SEL.push(id); }
   paintSel();
 }
 (function(){
@@ -996,39 +1043,66 @@ function openMulti(mode){
   const per=recs.map(r=>copyItems(r)); const labs=[];
   per.forEach(a=>a.forEach(x=>{ if(!labs.includes(x.l))labs.push(x.l); }));
   MULTI={recs,per,mode}; CM=labs.map(l=>({l,v:''}));
-  const sel=new Set(loadSel());
   $('#cm').querySelector('h3').textContent=mode==='xlsx'?'ما الأعمدة التي تريدها في ملف Excel؟':'ما الذي تريد نسخه؟';
-  $('#cmList').innerHTML=CM.map((x,i)=>'<label class="cm-row"><input type="checkbox" data-i="'+i+'"'+(sel.has(x.l)?' checked':'')+'><span class="tick"></span><span class="cm-t"><b>'+esc(x.l)+'</b></span></label>').join('');
+  renderCM();
   $('#cm').classList.add('on'); updGo();
 }
-$('#mGo').addEventListener('click',()=>openMulti('copy'));
+$('#mGo').addEventListener('click',()=>{ if(SEL.length>MAXSEL){ $('#mNote').classList.remove('shake');void $('#mNote').offsetWidth;$('#mNote').classList.add('shake'); toast('لا يمكن النسخ لأكثر من '+MAXSEL+' أسماء'); return; } openMulti('copy'); });
 $('#mXl').addEventListener('click',()=>openMulti('xlsx'));
+
+/* ---------- drag-reorder in copy menu ---------- */
+(function(){
+  const list=$('#cmList'); let row=null, sy=0;
+  list.addEventListener('click',e=>{ if(e.target.closest('.dh')){e.preventDefault();e.stopPropagation();} },true);
+  list.addEventListener('pointerdown',e=>{
+    const h=e.target.closest('.dh'); if(!h)return; e.preventDefault();
+    row=h.closest('.cm-row'); row.classList.add('drag'); list.classList.add('dragging'); try{h.setPointerCapture(e.pointerId)}catch(_){}
+    if(navigator.vibrate)try{navigator.vibrate(12)}catch(_){}
+  });
+  list.addEventListener('pointermove',e=>{
+    if(!row)return; e.preventDefault();
+    const r=list.getBoundingClientRect(); if(e.clientY<r.top+50)list.scrollTop-=10; else if(e.clientY>r.bottom-50)list.scrollTop+=10;
+    for(const o of list.querySelectorAll('.cm-row')){
+      if(o===row)continue; const b=o.getBoundingClientRect();
+      if(e.clientY>b.top&&e.clientY<b.bottom){ const before=e.clientY<b.top+b.height/2, ref=before?o:o.nextSibling; if(ref===row||row.nextSibling===ref)break;
+        const rows=[...list.querySelectorAll('.cm-row')], p0=new Map(rows.map(x=>[x,x.getBoundingClientRect().top]));
+        list.insertBefore(row,ref);
+        rows.forEach(x=>{ if(x===row)return; const d=p0.get(x)-x.getBoundingClientRect().top; if(d){ x.style.transition='none'; x.style.transform='translateY('+d+'px)'; requestAnimationFrame(()=>{ x.style.transition='transform .38s cubic-bezier(.22,1,.36,1)'; x.style.transform=''; }); } });
+        if(navigator.vibrate)try{navigator.vibrate(8)}catch(_){}
+        break; }
+    }
+  });
+  const end=()=>{ if(row){row.classList.remove('drag');row=null;} list.classList.remove('dragging'); };
+  list.addEventListener('pointerup',end); list.addEventListener('pointercancel',end);
+})();
 /* ---------- features sheet ---------- */
 const FEATS=[
+ ['الأمان وخصوصية البيانات','تُخزَّن قاعدة البيانات داخل ذاكرة المتصفح على الجهاز الذي استوردها فحسب، ولا تُرفع إلى أي خادم ولا تُرسَل عبر الشبكة؛ فالتطبيق يعمل دون اتصال، ولا يجري إلا فحصاً لرقم الإصدار لا تُنقَل فيه أي بيانات. ونتيجةً لذلك لا يمكن الاطّلاع على محتوى القاعدة من جهازٍ آخر ما لم يُستورَد إليه ملف Excel نفسه. ويُحمى عرض الهيكلية برمز دخول، وهو حاجزٌ استخدامي لا يغني عن حماية الجهاز بقفل الشاشة. وتبقى المعلومات التي يُصدِّرها المستخدم بالنسخ أو بملف Excel تحت مسؤوليته بعد خروجها من التطبيق.'],
  ['الاسترجاع المعلوماتي','بحثٌ مرن بالرقم العسكري أو بالاسم الكامل أو الجزئي، مع تطبيع إملائي للحروف العربية (الهمزات، الياء والألف المقصورة، التاء المربوطة، الأرقام الهندية)، وترتيب النتائج بحسب درجة المطابقة.'],
  ['قاعدة بيانات محلية','تُستورد البيانات من ملف Excel مرةً واحدة وتُحفَظ داخل الجهاز دون خادم، فتعمل المنظومة دون اتصال بالشبكة، وتبقى المعلومات تحت سيطرة المستخدم وحده.'],
  ['التمثيل الهرمي','عرضٌ شجري متعدّد المستويات للتشكيل التنظيمي، مع صور مصغّرة للأفراد ومرشِّح بحثي، وحمايةٌ برمز دخول لواجهة الهيكلية.'],
  ['بطاقة الفرد','تنظيمٌ للبيانات في أقسام موضوعية (الهوية، الموقع الوظيفي، التواصل والسكن، الحالة الاجتماعية والصحية، التعليم والخبرات، القياسات، الحساب المالي)، مع صورة شخصية قابلة للتكبير والتنزيل.'],
  ['الوسائط','عرض صورة الحساب المالي مقترنةً برقمه، وإتاحة نسخ الرقم وتنزيل الصورة من نافذة العرض.'],
  ['النسخ الانتقائي','اختيار الحقول المراد نسخها من بطاقة الفرد، وتذكّر اختيارات المستخدم السابقة.'],
- ['التحديد المتعدّد','تحديد ما يصل إلى عشرة أفراد بالضغط المطوّل في الهيكلية، ثم نسخ بياناتهم نصّياً أو تصديرها إلى ملف Excel ومشاركته، مع ترك الحقول غير المسجّلة فارغة.'],
+ ['التحديد المتعدّد','تحديد الأفراد بالضغط المطوّل في الهيكلية؛ فيُتاح النسخ النصّي لما لا يزيد على عشرة أفراد، ويُتاح التصدير إلى ملف Excel ومشاركته لعددٍ أكبر (حتى 300)، مع ترك الحقول غير المسجّلة فارغة.'],
  ['التهيئة للتثبيت','تطبيقٌ تقدّمي (PWA) يمكن تثبيته على الشاشة الرئيسية، ويعمل دون اتصال، ويُخطِر المستخدم بتوافر إصدار أحدث.'],
  ['التفاعل البصري','تصميمٌ فاتح بزخرفة نجمية إسلامية وخطوط ذهبية، وتغذيةٌ راجعة هادئة عند الضغط على العناصر، وإشعاراتٌ موجزة.']
 ];
 const HIST=[
- ['4.6','إضافة زر «مشاركة Excel» عند التحديد المتعدّد، واستحداث نافذة «مميزات التطبيق»، وتوحيد تأثير الضغط الذهبي على جميع الأزرار، وتلوين زر التحقق من التحديثات.'],
- ['4.5','رفع الحد الأقصى للتحديد المتعدّد إلى عشرة أسماء، وتبسيط قائمة النسخ بعرض أسماء الحقول فحسب، وتخفيف أثر الضغط.'],
- ['4.4','استحداث التحديد المتعدّد بالضغط المطوّل في الهيكلية، ونسخ بيانات عدة أفراد دفعةً واحدة بترتيب التحديد.'],
- ['4.0 – 4.3','إعادة تصميم الإشعارات: سطرٌ واحد، وشعار التطبيق دائرةً يسار الإشعار، وخلفية مطابقة لواجهة الصفحة الرئيسية، وتكبير الخط.'],
- ['3.8 – 3.9','إضافة تغذية راجعة عند الضغط على الأزرار، وإشعار تأكيد النسخ والتنزيل.'],
- ['3.7','نقل زرّي «تحميل» و«إغلاق» إلى أسفل الصورة مباشرةً في نافذة العرض.'],
- ['3.0 – 3.6','اعتماد النموذج الجديد لملف Excel، وبطاقة الفرد المقسّمة إلى أقسام، والصور الشخصية وصور الحساب، وتنسيق التواريخ (يوم / شهر / سنة)، وتسمية المستويات كما في ترويسة الملف، وشعار التطبيق وأيقونته، وإشعارات التحديث، وصور الأفراد المصغّرة في الهيكلية.']
+ ['4.9',['إضافة فقرة «الأمان وخصوصية البيانات» إلى وصف التطبيق.','توضيح أثر إعادة ترتيب الحقول: رفع الصف المسحوب وإبراز إطاره، وتعتيم بقية الصفوف، وانسيابٍ حركي عند تبادل المواضع، واهتزازٍ خفيف عند كل تبديل.']],
+ ['4.8',['إتاحة إعادة ترتيب الحقول المراد نسخها أو تصديرها بالسحب من المقبض (ثلاثة خطوط) على يسار كل حقل، فيتبع النسخ النصّي وأعمدة ملف Excel الترتيبَ المعتمَد.','حفظ ترتيب الحقول المختارة لاستعادته في الاستخدام اللاحق.','عرض جميع بنود سجلّ الإصدارات مفصّلةً دون طيّ.']],
+ ['4.7',['إتاحة تحديد ما يزيد على عشرة أفراد (حتى 300) لأغراض التصدير إلى ملف Excel.','حصر النسخ النصّي بعشرة أفراد، مع تنبيهٍ توضيحي عند تجاوز هذا الحد.','توحيد النمط البصري لزرّي التحقق من التحديثات ومميزات التطبيق.']],
+ ['4.6',['إضافة تصدير بيانات الأفراد المحدَّدين إلى ملف Excel ومشاركته مباشرةً، بعمودٍ لكل حقل مختار وصفٍّ لكل فرد، وترك الحقول غير المسجَّلة فارغة.','استحداث نافذة «مميزات التطبيق».','توحيد أثر الضغط الذهبي على جميع الأزرار.']],
+ ['4.4 – 4.5',['استحداث التحديد المتعدّد بالضغط المطوّل في الهيكلية، ونسخ بيانات عدة أفراد بترتيب التحديد.','تبسيط قائمة اختيار الحقول، وتخفيف أثر الضغط.']],
+ ['4.0 – 4.3',['إعادة تصميم الإشعارات: سطرٌ واحد، وشعار التطبيق دائرةً يسار الإشعار، وخلفية مطابقة لواجهة الصفحة الرئيسية، وتكبير الخط.']],
+ ['3.7 – 3.9',['نقل زرّي «تحميل» و«إغلاق» إلى أسفل الصورة مباشرةً في نافذة العرض.','إضافة تغذية راجعة عند الضغط، وإشعار تأكيد النسخ والتنزيل.']],
+ ['3.0 – 3.6',['اعتماد النموذج الجديد لملف Excel، وبطاقة الفرد المقسّمة إلى أقسام موضوعية.','عرض الصورة الشخصية وصورة الحساب المالي مع إمكانية التكبير والتنزيل.','تنسيق التواريخ بصيغة يوم / شهر / سنة، وتسمية المستويات كما في ترويسة الملف.','شعار التطبيق وأيقونته، وإشعارات توافر الإصدارات الجديدة، وصور الأفراد المصغّرة في الهيكلية.']]
 ];
 (function(){
   $('#ftBody').innerHTML='<div class="fth">أولاً: الخصائص الوظيفية</div>'+
     FEATS.map(f=>'<p class="ftp"><b>'+esc(f[0])+':</b> '+esc(f[1])+'</p>').join('')+
     '<div class="fth">ثانياً: سجلّ الإصدارات</div>'+
-    HIST.map((h,i)=>'<details class="ftv"'+(i===0?' open':'')+'><summary><span>الإصدار '+esc(h[0])+'</span></summary><ul><li>'+esc(h[1])+'</li></ul></details>').join('');
+    HIST.map(h=>'<div class="ftv"><div class="ftvh"><span>الإصدار '+esc(h[0])+'</span></div><ul>'+h[1].map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>').join('');
   $('#featBtn').addEventListener('click',()=>$('#ft').classList.add('on'));
   $('#ftOk').addEventListener('click',()=>$('#ft').classList.remove('on'));
   $('#ft').addEventListener('click',e=>{ if(e.target.id==='ft')$('#ft').classList.remove('on'); });
@@ -1213,8 +1287,8 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='4.6';
-const CHANGES={'4.6':['زر «مشاركة Excel» للتحديد المتعدّد، ونافذة «مميزات التطبيق»، وتأثير ضغط ذهبي موحّد.']};
+const VERSION='4.9';
+const CHANGES={'4.9':['أُضيفت فقرة «الأمان وخصوصية البيانات» إلى وصف التطبيق.','عُزِّز وضوح أثر إعادة ترتيب الحقول المراد نسخها أو تصديرها.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
