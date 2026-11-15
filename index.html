@@ -412,8 +412,29 @@ button.tap{animation:tapsoft .55s cubic-bezier(.2,.7,.3,1)}
 .lbb.tap,.lb-cap button.tap{animation:tapsoftw .55s cubic-bezier(.2,.7,.3,1)}
 @keyframes tapsoftw{0%{box-shadow:0 0 0 0 rgba(255,255,255,.4)}100%{box-shadow:0 0 0 14px rgba(255,255,255,0)}}
 .person:active,.ritem:active,.big:active{background:#2b4a3d0f;transition:background .08s}
+
+/* ===== v4.6 gold press, update buttons, features sheet, xlsx share ===== */
+button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
+@keyframes tapgold{0%{box-shadow:0 0 0 0 rgba(216,180,106,.65),inset 0 0 0 2px rgba(232,200,128,.95)}100%{box-shadow:0 0 0 15px rgba(216,180,106,0),inset 0 0 0 2px rgba(232,200,128,0)}}
+.updrow{display:flex;gap:10px;margin-top:12px}
+.updrow .btn3{margin:0;flex:1;font-weight:800;font-size:15px}
+.updrow #chkUpd{background:linear-gradient(135deg,#2f7d5e,#1f5c46);border-color:#1f5c46;color:#fff;box-shadow:0 6px 16px #1f5c4640}
+.updrow #featBtn{background:#fff;color:#7a5a16;border:1.5px solid #d8b46a}
+.mbar{gap:8px}
+.mbar button{font-size:14.5px;padding:0 6px}
+.mbar #mGo{flex:1.5}
+.mbar #mXl{flex:1;background:linear-gradient(135deg,#f4dfa6,#d8b46a);border-color:#d8b46a;color:#2a1d06}
+.mbar #mX{width:64px;flex:none}
+.ftv{margin:0 0 10px;border:1.5px solid var(--line);border-radius:16px;background:var(--surf2);overflow:hidden}
+.ftv summary{padding:13px 14px;font-weight:800;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:8px}
+.ftv summary::-webkit-details-marker{display:none}
+.ftv summary small{color:var(--mut);font-weight:600}
+.ftv ul{margin:0;padding:0 30px 14px 16px;font-size:14px;line-height:1.95;color:var(--txt)}
+.ftp{font-size:14px;line-height:2;margin:0 2px 12px;color:var(--txt);text-align:justify}
+.fth{font-size:15.5px;font-weight:800;margin:14px 2px 8px;color:#7a5a16}
+.updrow #chkUpd{flex:1.35;font-size:14px;white-space:nowrap}.updrow #featBtn{font-size:14px;white-space:nowrap}
 </style>
-<meta name="app-version" content="4.5">
+<meta name="app-version" content="4.6">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -439,7 +460,7 @@ button.tap{animation:tapsoft .55s cubic-bezier(.2,.7,.3,1)}
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 4.5</div>
+  <div class="ver">الإصدار 4.6</div>
 </section>
 
 <!-- SEARCH -->
@@ -480,8 +501,8 @@ button.tap{animation:tapsoft .55s cubic-bezier(.2,.7,.3,1)}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>4.5</span></div>
-    <button class="btn3" id="chkUpd" style="margin-top:12px">التحقق من وجود تحديث</button>
+    <div class="stat"><span>إصدار التطبيق</span><span>4.6</span></div>
+    <div class="updrow"><button class="btn3" id="chkUpd">التحقق من التحديثات</button><button class="btn3" id="featBtn">مميزات التطبيق</button></div>
   </div>
   <div class="panel">
     <h3>إضافة قاعدة بيانات</h3>
@@ -501,11 +522,12 @@ button.tap{animation:tapsoft .55s cubic-bezier(.2,.7,.3,1)}
 </div>
 
 <div class="lb" id="lb"><div class="lb-cap" id="lbCap" hidden></div><div class="lb-box"><img id="lbImg" alt=""><div class="lb-top"><button id="lbDl" class="lbb pri">تحميل</button><button id="lbX" class="lbb">إغلاق</button></div></div></div>
-<div class="mbar" id="mbar"><button id="mGo">نسخ معلومات لأكثر من واحد</button><button id="mX">إلغاء</button></div>
+<div class="mbar" id="mbar"><button id="mGo">نسخ المعلومات</button><button id="mXl">مشاركة Excel</button><button id="mX">إلغاء</button></div>
 <div class="cm" id="cm"><div class="cm-sheet"><div class="handle"></div><h3>ما الذي تريد نسخه؟</h3>
 <div class="cm-quick"><button data-q="basic">الأساسية</button><button data-q="all">الكل</button><button data-q="none">إلغاء الكل</button></div>
 <div class="cm-list" id="cmList"></div><div class="cm-foot"><button class="cm-go" id="cmGo">نسخ</button></div></div></div>
 <div class="upd" id="upd"><span class="us">✦</span><span class="ut">إصدار جديد <b id="updV"></b> متاح</span><button id="updGo">تحديث الآن</button><button id="updX" aria-label="إغلاق">×</button></div>
+<div class="cm" id="ft"><div class="cm-sheet"><div class="handle"></div><h3>مميزات التطبيق</h3><div class="cm-list" id="ftBody"></div><div class="cm-foot"><button class="cm-go" id="ftOk">إغلاق</button></div></div></div>
 <div class="cm" id="wn"><div class="cm-sheet"><div class="handle"></div><div class="hstars dk wnst"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></div><h3 id="wnT" style="text-align:center"></h3><ul class="wnl" id="wnL"></ul><div class="cm-foot"><button class="cm-go" id="wnOk">حسناً</button></div></div></div>
 <div class="toast" id="toast"><span id="toastT"></span><img id="toastI" alt=""></div>
 
@@ -912,9 +934,9 @@ function copyItems(r){
 const BASIC=['الاسم الثلاثي','الرقم العسكري','مسمى العمل'];
 let CM=[];
 function loadSel(){ try{const s=JSON.parse(localStorage.getItem('dalil_copysel')||'null'); if(Array.isArray(s)&&s.length)return s}catch(e){} return BASIC; }
-function updGo(){ const n=document.querySelectorAll('#cmList input:checked').length; const g=$('#cmGo'); g.textContent=n?'نسخ ('+n+')':'اختر معلومة للنسخ'; g.disabled=!n; g.style.opacity=n?1:.5; }
+function updGo(){ const n=document.querySelectorAll('#cmList input:checked').length; const g=$('#cmGo'); g.textContent=n?((MULTI&&MULTI.mode==='xlsx'?'مشاركة ملف Excel (':'نسخ (')+n+')'):'اختر معلومة'; g.disabled=!n; g.style.opacity=n?1:.5; }
 $('#bCopy').addEventListener('click',()=>{
-  if(!CUR)return; MULTI=false; CM=copyItems(CUR); const sel=new Set(loadSel());
+  if(!CUR)return; MULTI=false; $('#cm').querySelector('h3').textContent='ما الذي تريد نسخه؟'; CM=copyItems(CUR); const sel=new Set(loadSel());
   $('#cmList').innerHTML=CM.map((x,i)=>'<label class="cm-row"><input type="checkbox" data-i="'+i+'"'+(sel.has(x.l)?' checked':'')+'><span class="tick"></span><span class="cm-t"><small>'+esc(x.l)+'</small><b>'+esc(x.v)+'</b></span></label>').join('');
   $('#cm').classList.add('on'); updGo();
 });
@@ -928,6 +950,12 @@ $('#cmList').addEventListener('change',updGo);
 $('#cmGo').addEventListener('click',()=>{
   const sel=[...document.querySelectorAll('#cmList input:checked')].map(c=>CM[+c.dataset.i]); if(!sel.length)return;
   try{localStorage.setItem('dalil_copysel',JSON.stringify(sel.map(x=>x.l)))}catch(e){}
+  if(MULTI&&MULTI.mode==='xlsx'){
+    const M=MULTI; $('#cm').classList.remove('on'); MULTI=false;
+    const head=sel.map(s=>s.l), rows=M.per.map(a=>{ const m=new Map(a.map(x=>[x.l,x.v])); return sel.map(s=>m.get(s.l)||''); });
+    shareXlsx(buildXlsx(head,rows)).then(r=>{ if(r==='shared')toast('تمت مشاركة الملف'); else if(r==='saved')toast('تم حفظ ملف Excel في التنزيلات'); });
+    return;
+  }
   let v, msgT;
   if(MULTI){ v=MULTI.per.map(a=>{ const m=new Map(a.map(x=>[x.l,x.v])); return sel.map(s=>s.l+': '+(m.get(s.l)||'')).join('\n'); }).join('\n\n'); msgT='تم نسخ '+MULTI.recs.length+' أسماء'; }
   else{ v=sel.map(x=>x.l+': '+x.v).join('\n'); msgT='تم نسخ '+sel.length+(sel.length>2?' معلومات':' معلومة'); }
@@ -963,15 +991,89 @@ function toggleSel(id){
   box.addEventListener('scroll',stop,true); addEventListener('scroll',stop,{passive:true});
 })();
 $('#mX').addEventListener('click',clearSel);
-$('#mGo').addEventListener('click',()=>{
+function openMulti(mode){
   const recs=SEL.map(id=>DB.records.find(r=>r.id===id)).filter(Boolean); if(!recs.length)return;
-  const per=recs.map(r=>copyItems(r)); const labs=[]; const cnt={};
-  per.forEach(a=>a.forEach(x=>{ if(!(x.l in cnt)){cnt[x.l]=0;labs.push(x.l)} cnt[x.l]++; }));
-  MULTI={recs,per}; CM=labs.map(l=>({l,v:''}));
+  const per=recs.map(r=>copyItems(r)); const labs=[];
+  per.forEach(a=>a.forEach(x=>{ if(!labs.includes(x.l))labs.push(x.l); }));
+  MULTI={recs,per,mode}; CM=labs.map(l=>({l,v:''}));
   const sel=new Set(loadSel());
+  $('#cm').querySelector('h3').textContent=mode==='xlsx'?'ما الأعمدة التي تريدها في ملف Excel؟':'ما الذي تريد نسخه؟';
   $('#cmList').innerHTML=CM.map((x,i)=>'<label class="cm-row"><input type="checkbox" data-i="'+i+'"'+(sel.has(x.l)?' checked':'')+'><span class="tick"></span><span class="cm-t"><b>'+esc(x.l)+'</b></span></label>').join('');
   $('#cm').classList.add('on'); updGo();
-});
+}
+$('#mGo').addEventListener('click',()=>openMulti('copy'));
+$('#mXl').addEventListener('click',()=>openMulti('xlsx'));
+/* ---------- features sheet ---------- */
+const FEATS=[
+ ['الاسترجاع المعلوماتي','بحثٌ مرن بالرقم العسكري أو بالاسم الكامل أو الجزئي، مع تطبيع إملائي للحروف العربية (الهمزات، الياء والألف المقصورة، التاء المربوطة، الأرقام الهندية)، وترتيب النتائج بحسب درجة المطابقة.'],
+ ['قاعدة بيانات محلية','تُستورد البيانات من ملف Excel مرةً واحدة وتُحفَظ داخل الجهاز دون خادم، فتعمل المنظومة دون اتصال بالشبكة، وتبقى المعلومات تحت سيطرة المستخدم وحده.'],
+ ['التمثيل الهرمي','عرضٌ شجري متعدّد المستويات للتشكيل التنظيمي، مع صور مصغّرة للأفراد ومرشِّح بحثي، وحمايةٌ برمز دخول لواجهة الهيكلية.'],
+ ['بطاقة الفرد','تنظيمٌ للبيانات في أقسام موضوعية (الهوية، الموقع الوظيفي، التواصل والسكن، الحالة الاجتماعية والصحية، التعليم والخبرات، القياسات، الحساب المالي)، مع صورة شخصية قابلة للتكبير والتنزيل.'],
+ ['الوسائط','عرض صورة الحساب المالي مقترنةً برقمه، وإتاحة نسخ الرقم وتنزيل الصورة من نافذة العرض.'],
+ ['النسخ الانتقائي','اختيار الحقول المراد نسخها من بطاقة الفرد، وتذكّر اختيارات المستخدم السابقة.'],
+ ['التحديد المتعدّد','تحديد ما يصل إلى عشرة أفراد بالضغط المطوّل في الهيكلية، ثم نسخ بياناتهم نصّياً أو تصديرها إلى ملف Excel ومشاركته، مع ترك الحقول غير المسجّلة فارغة.'],
+ ['التهيئة للتثبيت','تطبيقٌ تقدّمي (PWA) يمكن تثبيته على الشاشة الرئيسية، ويعمل دون اتصال، ويُخطِر المستخدم بتوافر إصدار أحدث.'],
+ ['التفاعل البصري','تصميمٌ فاتح بزخرفة نجمية إسلامية وخطوط ذهبية، وتغذيةٌ راجعة هادئة عند الضغط على العناصر، وإشعاراتٌ موجزة.']
+];
+const HIST=[
+ ['4.6','إضافة زر «مشاركة Excel» عند التحديد المتعدّد، واستحداث نافذة «مميزات التطبيق»، وتوحيد تأثير الضغط الذهبي على جميع الأزرار، وتلوين زر التحقق من التحديثات.'],
+ ['4.5','رفع الحد الأقصى للتحديد المتعدّد إلى عشرة أسماء، وتبسيط قائمة النسخ بعرض أسماء الحقول فحسب، وتخفيف أثر الضغط.'],
+ ['4.4','استحداث التحديد المتعدّد بالضغط المطوّل في الهيكلية، ونسخ بيانات عدة أفراد دفعةً واحدة بترتيب التحديد.'],
+ ['4.0 – 4.3','إعادة تصميم الإشعارات: سطرٌ واحد، وشعار التطبيق دائرةً يسار الإشعار، وخلفية مطابقة لواجهة الصفحة الرئيسية، وتكبير الخط.'],
+ ['3.8 – 3.9','إضافة تغذية راجعة عند الضغط على الأزرار، وإشعار تأكيد النسخ والتنزيل.'],
+ ['3.7','نقل زرّي «تحميل» و«إغلاق» إلى أسفل الصورة مباشرةً في نافذة العرض.'],
+ ['3.0 – 3.6','اعتماد النموذج الجديد لملف Excel، وبطاقة الفرد المقسّمة إلى أقسام، والصور الشخصية وصور الحساب، وتنسيق التواريخ (يوم / شهر / سنة)، وتسمية المستويات كما في ترويسة الملف، وشعار التطبيق وأيقونته، وإشعارات التحديث، وصور الأفراد المصغّرة في الهيكلية.']
+];
+(function(){
+  $('#ftBody').innerHTML='<div class="fth">أولاً: الخصائص الوظيفية</div>'+
+    FEATS.map(f=>'<p class="ftp"><b>'+esc(f[0])+':</b> '+esc(f[1])+'</p>').join('')+
+    '<div class="fth">ثانياً: سجلّ الإصدارات</div>'+
+    HIST.map((h,i)=>'<details class="ftv"'+(i===0?' open':'')+'><summary><span>الإصدار '+esc(h[0])+'</span></summary><ul><li>'+esc(h[1])+'</li></ul></details>').join('');
+  $('#featBtn').addEventListener('click',()=>$('#ft').classList.add('on'));
+  $('#ftOk').addEventListener('click',()=>$('#ft').classList.remove('on'));
+  $('#ft').addEventListener('click',e=>{ if(e.target.id==='ft')$('#ft').classList.remove('on'); });
+})();
+
+/* ---------- minimal xlsx writer (stored zip) ---------- */
+const CRCT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc32=b=>{let c=~0;for(let i=0;i<b.length;i++)c=CRCT[(c^b[i])&255]^(c>>>8);return(~c)>>>0};
+function zipStore(files){
+  const enc=new TextEncoder(), parts=[], cen=[]; let off=0;
+  const u16=n=>[n&255,(n>>8)&255], u32=n=>[n&255,(n>>8)&255,(n>>16)&255,(n>>>24)&255];
+  for(const [name,data] of files){
+    const nb=enc.encode(name), db=typeof data==='string'?enc.encode(data):data, c=crc32(db);
+    const h=new Uint8Array([0x50,0x4b,3,4,20,0,0,8,0,0,0,0,0x21,0,...u32(c),...u32(db.length),...u32(db.length),...u16(nb.length),0,0]);
+    parts.push(h,nb,db);
+    cen.push(new Uint8Array([0x50,0x4b,1,2,20,0,20,0,0,8,0,0,0,0,0x21,0,...u32(c),...u32(db.length),...u32(db.length),...u16(nb.length),0,0,0,0,0,0,0,0,0,0,0,0,...u32(off)]),nb);
+    off+=h.length+nb.length+db.length;
+  }
+  let cl=0; cen.forEach(x=>cl+=x.length);
+  const end=new Uint8Array([0x50,0x4b,5,6,0,0,0,0,...u16(files.length),...u16(files.length),...u32(cl),...u32(off),0,0]);
+  return new Blob([...parts,...cen,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function colName(i){let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s}
+const xe=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,'');
+function buildXlsx(head,rows){
+  const cell=(v,r,c)=>'<c r="'+colName(c)+r+'" t="inlineStr"'+(r===1?' s="1"':'')+'><is><t xml:space="preserve">'+xe(v)+'</t></is></c>';
+  const all=[head,...rows];
+  const sd=all.map((row,ri)=>'<row r="'+(ri+1)+'">'+row.map((v,ci)=>cell(v,ri+1,ci)).join('')+'</row>').join('');
+  const cols='<cols>'+head.map((h,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+Math.min(40,Math.max(14,Math.max(...all.map(r=>String(r[i]||'').length))*1.1))+'" customWidth="1"/>').join('')+'</cols>';
+  const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+  return zipStore([
+   ['[Content_Types].xml',X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'],
+   ['_rels/.rels',X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
+   ['xl/workbook.xml',X+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="المعلومات" sheetId="1" r:id="rId1"/></sheets></workbook>'],
+   ['xl/_rels/workbook.xml.rels',X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
+   ['xl/styles.xml',X+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Arial"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1F5C46"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment horizontal="right" vertical="center" wrapText="1"/></xf><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf></cellXfs></styleSheet>'],
+   ['xl/worksheets/sheet1.xml',X+'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView rightToLeft="1" workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>'+cols+'<sheetData>'+sd+'</sheetData></worksheet>']
+  ]);
+}
+async function shareXlsx(blob){
+  const d=new Date(), p=n=>String(n).padStart(2,'0'), name='معلومات_الأسماء_'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'.xlsx';
+  try{ const f=new File([blob],name,{type:blob.type}); if(navigator.canShare&&navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:'معلومات الأسماء'}); return 'shared'; } }
+  catch(e){ if(e&&e.name==='AbortError')return 'abort'; }
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); return 'saved';
+}
 /* hide action bar while scrolling down, show on scroll up */
 (function(){ let ly=0; addEventListener('scroll',()=>{
   if(!$('#person').classList.contains('on'))return;
@@ -1111,8 +1213,8 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='4.5';
-const CHANGES={'4.5':['تحديد حتى 10 أسماء، وقائمة نسخ أنظف، وتأثير ضغط أهدأ.']};
+const VERSION='4.6';
+const CHANGES={'4.6':['زر «مشاركة Excel» للتحديد المتعدّد، ونافذة «مميزات التطبيق»، وتأثير ضغط ذهبي موحّد.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
