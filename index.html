@@ -495,9 +495,6 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
 .mrow .mt b{font-size:16px}
 .mrow.no .mt b{color:#9a3a22;font-size:15px}
 .mrow .mt small{color:var(--mut);font-size:13.5px}
-.linkbox{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
-.linkbox input{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:14px;font-size:15px;margin-bottom:10px;background:#fff}
-.linkbox .hint{font-size:13px;color:var(--mut);line-height:1.8;margin:8px 0 0}
 /* 5.0 multi layout */
 .mbox{display:flex;align-items:stretch;gap:10px;padding:10px}
 .mbox textarea{flex:1;min-width:0;min-height:0;height:96px;resize:none;font-size:16px;line-height:1.8}
@@ -598,7 +595,6 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
     <p>اختر ملف إكسل (.xlsx) جديداً، وسيُحذف الملف القديم ويُستبدل به. يجب أن يحتوي الملف على عمودي «الرقم العسكري» و«الاسم». الصور تُقرأ من الأعمدة التي عنوانها «صورة …» سواء كانت مدرجة داخل الملف أو روابط.</p>
     <button class="btn2" id="pick">اختيار ملف إكسل</button>
     <input type="file" id="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
-    <div class="linkbox"><input id="lnk" type="url" dir="ltr" placeholder="رابط مشاركة من OneDrive" inputmode="url" autocomplete="off" spellcheck="false"><button class="btn2" id="lnkGo">استيراد من الرابط</button><p class="hint">يجب أن يكون الرابط مفتوحاً لـ «أي شخص لديه الرابط». يحتاج هذا الخيار اتصالاً بالإنترنت لمرة الاستيراد فقط، ثم تُحفظ البيانات على الجهاز.</p></div>
 
     <div class="msg" id="msg"></div>
     <button class="btn3" id="reset">العودة إلى الملف الأصلي المدمج</button>
@@ -1190,8 +1186,7 @@ $('#mPaste').addEventListener('click',async()=>{
 /* ---------- features sheet ---------- */
 const FEATS=[
  ['البحث المتعدّد','إدخال قائمة من الأرقام العسكرية (رقم في كل سطر) والتحقق منها دفعةً واحدة؛ فيُعرض لكل رقمٍ اسم صاحبه ومسمّاه الوظيفي إن وُجد، وإلا يُبيَّن أنه «ليس ضمن الأسماء»، مع ملخّصٍ عددي وإمكانية نسخ النتائج.'],
- ['الاستيراد من رابط','إمكانية استيراد قاعدة البيانات من رابط مشاركة OneDrive بدلاً من الملف المحلي، على أن يقتصر الاتصال بالشبكة على لحظة الاستيراد، ثم تُحفظ البيانات محلياً.'],
- ['الأمان وخصوصية البيانات','تُخزَّن قاعدة البيانات داخل ذاكرة المتصفح على الجهاز الذي استوردها فحسب، ولا تُرفع إلى أي خادم ولا تُرسَل عبر الشبكة؛ فالتطبيق يعمل دون اتصال، ولا يجري إلا فحصاً لرقم الإصدار لا تُنقَل فيه أي بيانات، إضافةً إلى جلب الملف من الرابط حين يطلب المستخدم ذلك صراحةً. ونتيجةً لذلك لا يمكن الاطّلاع على محتوى القاعدة من جهازٍ آخر ما لم يُستورَد إليه ملف Excel نفسه. ويُحمى عرض الهيكلية برمز دخول، وهو حاجزٌ استخدامي لا يغني عن حماية الجهاز بقفل الشاشة. وتبقى المعلومات التي يُصدِّرها المستخدم بالنسخ أو بملف Excel تحت مسؤوليته بعد خروجها من التطبيق.'],
+ ['الأمان وخصوصية البيانات','تُخزَّن قاعدة البيانات داخل ذاكرة المتصفح على الجهاز الذي استوردها فحسب، ولا تُرفع إلى أي خادم ولا تُرسَل عبر الشبكة؛ فالتطبيق يعمل دون اتصال، ولا يجري إلا فحصاً لرقم الإصدار لا تُنقَل فيه أي بيانات. ونتيجةً لذلك لا يمكن الاطّلاع على محتوى القاعدة من جهازٍ آخر ما لم يُستورَد إليه ملف Excel نفسه. ويُحمى عرض الهيكلية برمز دخول، وهو حاجزٌ استخدامي لا يغني عن حماية الجهاز بقفل الشاشة. وتبقى المعلومات التي يُصدِّرها المستخدم بالنسخ أو بملف Excel تحت مسؤوليته بعد خروجها من التطبيق.'],
  ['الاسترجاع المعلوماتي','بحثٌ مرن بالرقم العسكري أو بالاسم الكامل أو الجزئي، مع تطبيع إملائي للحروف العربية (الهمزات، الياء والألف المقصورة، التاء المربوطة، الأرقام الهندية)، وترتيب النتائج بحسب درجة المطابقة.'],
  ['قاعدة بيانات محلية','تُستورد البيانات من ملف Excel مرةً واحدة وتُحفَظ داخل الجهاز دون خادم، فتعمل المنظومة دون اتصال بالشبكة، وتبقى المعلومات تحت سيطرة المستخدم وحده.'],
  ['التمثيل الهرمي','عرضٌ شجري متعدّد المستويات للتشكيل التنظيمي، مع صور مصغّرة للأفراد ومرشِّح بحثي، وحمايةٌ برمز دخول لواجهة الهيكلية.'],
@@ -1203,7 +1198,7 @@ const FEATS=[
  ['التفاعل البصري','تصميمٌ فاتح بزخرفة نجمية إسلامية وخطوط ذهبية، وتغذيةٌ راجعة هادئة عند الضغط على العناصر، وإشعاراتٌ موجزة.']
 ];
 const HIST=[
- ['5.0',['إتاحة تحديد المعلومات المطلوبة لنتائج البحث المتعدّد ونسخها أو تصديرها إلى ملف Excel مع بيان حالة كل رقم في عمودٍ مستقل، ويُدمَج الرقم المُدخَل في عمود «الرقم العسكري».','استحداث «البحث المتعدّد»: لصق قائمة أرقام عسكرية وعرض اسم صاحب كل رقم ومسمّاه الوظيفي، أو بيان أنه ليس ضمن الأسماء، مع ملخّصٍ عددي ونسخٍ للنتائج.','إتاحة استيراد قاعدة البيانات من رابط مشاركة OneDrive إلى جانب ملف Excel المحلي.']],
+ ['5.0',['إتاحة تحديد المعلومات المطلوبة لنتائج البحث المتعدّد ونسخها أو تصديرها إلى ملف Excel مع بيان حالة كل رقم في عمودٍ مستقل، ويُدمَج الرقم المُدخَل في عمود «الرقم العسكري».','استحداث «البحث المتعدّد»: لصق قائمة أرقام عسكرية وعرض اسم صاحب كل رقم ومسمّاه الوظيفي، أو بيان أنه ليس ضمن الأسماء، مع ملخّصٍ عددي ونسخٍ للنتائج.']],
  ['4.9',['إضافة فقرة «الأمان وخصوصية البيانات» إلى وصف التطبيق.','توضيح أثر إعادة ترتيب الحقول: رفع الصف المسحوب وإبراز إطاره، وتعتيم بقية الصفوف، وانسيابٍ حركي عند تبادل المواضع، واهتزازٍ خفيف عند كل تبديل.']],
  ['4.8',['إتاحة إعادة ترتيب الحقول المراد نسخها أو تصديرها بالسحب من المقبض (ثلاثة خطوط) على يسار كل حقل، فيتبع النسخ النصّي وأعمدة ملف Excel الترتيبَ المعتمَد.','حفظ ترتيب الحقول المختارة لاستعادته في الاستخدام اللاحق.','عرض جميع بنود سجلّ الإصدارات مفصّلةً دون طيّ.']],
  ['4.7',['إتاحة تحديد ما يزيد على عشرة أفراد (حتى 300) لأغراض التصدير إلى ملف Excel.','حصر النسخ النصّي بعشرة أفراد، مع تنبيهٍ توضيحي عند تجاوز هذا الحد.','توحيد النمط البصري لزرّي التحقق من التحديثات ومميزات التطبيق.']],
@@ -1384,35 +1379,6 @@ $('#file').addEventListener('change',async e=>{
   const f=e.target.files[0]; if(!f)return;
   await importBuffer(await f.arrayBuffer(),f.name); e.target.value='';
 });
-/* ---------- import from OneDrive link ---------- */
-const b64u=s=>btoa(unescape(encodeURIComponent(s))).replace(/=+$/,'').replace(/\//g,'_').replace(/\+/g,'-');
-async function fetchWorkbook(u){
-  let url=u.trim(); if(!/^https?:\/\//i.test(url))url='https://'+url;
-  const tries=[], notes=[];
-  const isZip=buf=>{const h=new Uint8Array(buf.slice(0,2));return h[0]===0x50&&h[1]===0x4B};
-  const grab=async(label,fn)=>{ try{ const buf=await fn(); if(buf&&isZip(buf))return buf; notes.push(label+': ليس ملف xlsx'); }catch(e){ notes.push(label+': '+(e.message||'تعذّر الاتصال')); } return null; };
-  const get=async(link,opt)=>{ const r=await fetch(link,Object.assign({redirect:'follow',cache:'no-store'},opt||{})); if(!r.ok)throw new Error('HTTP '+r.status); return r.arrayBuffer(); };
-  const api='https://api.onedrive.com/v1.0/shares/u!'+b64u(url);
-  // 1) direct download URL from the shares API (CORS friendly)
-  let buf=await grab('الطريقة 1',async()=>{
-    const r=await fetch(api+'/driveItem?select=@content.downloadUrl,@microsoft.graph.downloadUrl',{cache:'no-store'}); if(!r.ok)throw new Error('HTTP '+r.status);
-    const j=await r.json(); const d=j['@content.downloadUrl']||j['@microsoft.graph.downloadUrl']; if(!d)throw new Error('لا يوجد رابط تنزيل');
-    return get(d);
-  }); if(buf)return buf;
-  buf=await grab('الطريقة 2',()=>get(api+'/root/content')); if(buf)return buf;
-  try{ const x=new URL(url); x.searchParams.set('download','1'); buf=await grab('الطريقة 3',()=>get(x.toString())); if(buf)return buf; }catch(_){}
-  throw new Error('تعذّر جلب الملف من الرابط. ('+notes.join(' | ')+') — غالباً تمنع OneDrive القراءة من المتصفح مباشرةً. الحل المضمون: نزِّل الملف من OneDrive ثم اضغط «اختيار ملف إكسل» واختره من التنزيلات.');
-}
-try{ $('#lnk').value=localStorage.getItem('dalil_link')||''; }catch(_){}
-$('#lnkGo').addEventListener('click',async()=>{
-  const u=$('#lnk').value.trim(); if(!u){ msg('الصق رابط الملف أولاً','err'); return; }
-  const b=$('#lnkGo'); b.disabled=true; msg('جارٍ جلب الملف من الرابط…','ok');
-  try{
-    const buf=await fetchWorkbook(u);
-    if(await importBuffer(buf,'ملف OneDrive')){ try{localStorage.setItem('dalil_link',u)}catch(_){} }
-  }catch(err){ msg(err.message,'err'); }
-  b.disabled=false;
-});
 if(!DEFAULT_DB.records.length)$('#reset').textContent='حذف قاعدة البيانات الحالية';
 let rstArm=0;
 $('#reset').addEventListener('click',()=>{
@@ -1438,7 +1404,7 @@ document.querySelectorAll('.cm-sheet').forEach(s=>{ const b=document.createEleme
 
 /* ---------- updates ---------- */
 const VERSION='5.0';
-const CHANGES={'5.0':['استُحدث «البحث المتعدّد» للتحقق من قائمة أرقام عسكرية دفعةً واحدة وعرض الأسماء والمسمّيات المقابلة لها.','أُتيح استيراد قاعدة البيانات من رابط مشاركة OneDrive.','أُتيح في البحث المتعدّد تحديد المعلومات المطلوبة ونسخها أو تصديرها إلى Excel.','أُضيفت علامة (×) لإغلاق جميع القوائم المنسدلة.']};
+const CHANGES={'5.0':['استُحدث «البحث المتعدّد» للتحقق من قائمة أرقام عسكرية دفعةً واحدة وعرض الأسماء والمسمّيات المقابلة لها.','أُتيح في البحث المتعدّد تحديد المعلومات المطلوبة ونسخها أو تصديرها إلى Excel.','أُضيفت علامة (×) لإغلاق جميع القوائم المنسدلة.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
