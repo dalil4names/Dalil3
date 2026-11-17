@@ -474,8 +474,45 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
 .cm-row.drag{transition:box-shadow .25s ease,background .25s ease,transform .25s ease}
 /* 4.9: viewer buttons like featBtn */
 .lbb,.lbb.pri{background:#fff!important;color:#7a5a16!important;border:1.5px solid #d8b46a!important;font-weight:800;box-shadow:none!important}
+
+/* ===== v5.0 multi search + link import ===== */
+.mbox{margin:0 16px 12px;background:var(--surf);border:1.5px solid var(--line);border-radius:20px;padding:10px;box-shadow:0 4px 14px #1d2a2412}
+.mbox textarea{width:100%;border:none;outline:none;background:transparent;font:inherit;font-size:17px;line-height:1.9;resize:vertical;min-height:140px;text-align:left;color:var(--txt)}
+.mrowb{display:flex;gap:8px;justify-content:flex-start}
+.mrowb .paste{position:static}
+#mRes{padding:0 16px 40px}
+.msum{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.msum .chip{padding:6px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--line);font-size:13.5px;font-weight:800}
+.msum .chip.g{background:#e8f4ee;border-color:#9ccab3;color:#1f5c46}
+.msum .chip.r{background:#fdeeea;border-color:#e8b3a5;color:#9a3a22}
+.mlist{display:flex;flex-direction:column;gap:8px}
+.mrow{display:flex;align-items:center;gap:12px;width:100%;text-align:right;padding:12px 14px;border-radius:16px;background:var(--surf);border:1.5px solid var(--line)}
+.mrow.ok{border-color:#9ccab3}
+.mrow.ok:active{background:#2b4a3d0f}
+.mrow.no{background:#fdf3f0;border-color:#efc4b7}
+.mrow .mid{font-size:15.5px;min-width:76px;color:#7a5a16;text-align:left}
+.mrow .mt{flex:1;display:flex;flex-direction:column;gap:2px}
+.mrow .mt b{font-size:16px}
+.mrow.no .mt b{color:#9a3a22;font-size:15px}
+.mrow .mt small{color:var(--mut);font-size:13.5px}
+.linkbox{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.linkbox input{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:14px;font-size:15px;margin-bottom:10px;background:#fff}
+.linkbox .hint{font-size:13px;color:var(--mut);line-height:1.8;margin:8px 0 0}
+/* 5.0 multi layout */
+.mbox{display:flex;align-items:stretch;gap:10px;padding:10px}
+.mbox textarea{flex:1;min-width:0;min-height:0;height:96px;resize:none;font-size:16px;line-height:1.8}
+.mbtns{display:flex;flex-direction:column;gap:8px;width:92px;flex:none}
+.mbtns .btn3{margin:0;flex:1;min-height:44px;background:#fff;color:#7a5a16;border:1.5px solid #d8b46a;font-weight:800;font-size:14.5px}
+.mact{display:flex;gap:8px;margin-top:12px}
+.mact .btn3{margin:0;flex:1;min-height:52px;padding:6px;background:#fff;color:#7a5a16;border:1.5px solid #d8b46a;font-weight:800;font-size:13.5px;line-height:1.5}
+#mSel{flex:1.7!important}.mact .btn3{font-size:13px!important;padding:4px 2px!important}
+
+.cm-sheet{position:relative}
+.cm-x{position:absolute;top:14px;left:14px;width:38px;height:38px;border-radius:50%;background:#fff;border:1.5px solid #d8b46a;color:#7a5a16;display:grid;place-items:center;padding:0;z-index:3}
+.cm-x svg{width:18px;height:18px;stroke:#7a5a16;stroke-width:2.4;fill:none;stroke-linecap:round}
+.cm-sheet h3{padding-left:52px}
 </style>
-<meta name="app-version" content="4.9">
+<meta name="app-version" content="5.0">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="icon" href="icon-192.png">
@@ -498,10 +535,11 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
   <p class="hsub">ابحث بالرقم العسكري أو الاسم، أو تصفّح الهيكلية</p>
   <div class="orn"><i></i><b></b><i></i></div>
   <button class="big" onclick="go('search')"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><span><b>البحث</b><small>بالرقم العسكري أو الاسم</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="big" onclick="go('multi')"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h10M4 12h7M4 18h6"/><circle cx="17" cy="15" r="3.5"/><path d="M22 20l-2.6-2.6"/></svg></span><span><b>بحث متعدد</b><small>لصق عدة أرقام عسكرية دفعة واحدة</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <button class="big" onclick="go('tree')"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-4h12v4"/></svg></span><span><b>عرض الهيكلية</b><small>السرايا والجماعات والأفراد</small></span><svg class="chev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <div class="foot" id="homeFoot"></div>
   <div class="orn sm"><i></i><b></b><i></i></div>
-  <div class="ver">الإصدار 4.9</div>
+  <div class="ver">الإصدار 5.0</div>
 </section>
 
 <!-- SEARCH -->
@@ -514,6 +552,16 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
   <button class="go" id="goBtn">بحث</button>
   <div id="result"></div>
   <div class="sart"><div class="hstars dk"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.4 5.8 21l1.6-7L2 9.3l7.1-.7z"/></svg></div><svg class="big8" viewBox="0 0 120 120"><g fill="none" stroke="#d8b46a" stroke-linejoin="round"><circle cx="60" cy="60" r="54" stroke-width="1.2" opacity=".7"/><circle cx="60" cy="60" r="48" stroke-width=".8" opacity=".5"/><path stroke-width="1.6" d="M60 12l11 25 25-11-11 25 25 11-25 11 11 25-25-11-11 25-11-25-25 11 11-25-25-11 25-11-11-25 25 11z"/><circle cx="60" cy="60" r="8" stroke-width="1.6"/></g></svg><p>اكتب الاسم أو جزءاً منه، أو الرقم العسكري</p><div class="orn"><i></i><b></b><i></i></div></div>
+</section>
+
+<!-- MULTI SEARCH -->
+<section class="screen" id="multi">
+  <div class="top"><button class="icon-btn" onclick="history.back()" aria-label="رجوع"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><h2>بحث متعدد</h2></div>
+  <div class="mbox">
+    <textarea id="mq" rows="3" dir="ltr" placeholder="الصق الأرقام العسكرية هنا، رقماً في كل سطر" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+    <div class="mbtns"><button class="btn3" id="mPaste">لصق</button><button class="btn3" id="mClear">مسح</button></div>
+  </div>
+  <div id="mRes"></div>
 </section>
 
 <!-- TREE -->
@@ -542,7 +590,7 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
   </div>
   <div class="panel">
     <h3>الإصدار</h3>
-    <div class="stat"><span>إصدار التطبيق</span><span>4.9</span></div>
+    <div class="stat"><span>إصدار التطبيق</span><span>5.0</span></div>
     <div class="updrow"><button class="btn3" id="chkUpd">التحقق من التحديثات</button><button class="btn3" id="featBtn">مميزات التطبيق</button></div>
   </div>
   <div class="panel">
@@ -550,6 +598,8 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
     <p>اختر ملف إكسل (.xlsx) جديداً، وسيُحذف الملف القديم ويُستبدل به. يجب أن يحتوي الملف على عمودي «الرقم العسكري» و«الاسم». الصور تُقرأ من الأعمدة التي عنوانها «صورة …» سواء كانت مدرجة داخل الملف أو روابط.</p>
     <button class="btn2" id="pick">اختيار ملف إكسل</button>
     <input type="file" id="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
+    <div class="linkbox"><input id="lnk" type="url" dir="ltr" placeholder="رابط مشاركة من OneDrive" inputmode="url" autocomplete="off" spellcheck="false"><button class="btn2" id="lnkGo">استيراد من الرابط</button><p class="hint">يجب أن يكون الرابط مفتوحاً لـ «أي شخص لديه الرابط». يحتاج هذا الخيار اتصالاً بالإنترنت لمرة الاستيراد فقط، ثم تُحفظ البيانات على الجهاز.</p></div>
+
     <div class="msg" id="msg"></div>
     <button class="btn3" id="reset">العودة إلى الملف الأصلي المدمج</button>
   </div>
@@ -837,13 +887,13 @@ function renderStat(){
 function go(s){location.hash=s}
 let PREV='';
 function show(){
-  const s=(location.hash||'#home').slice(1); const id=['home','search','tree','settings','person'].includes(s)?s:'home';
+  const s=(location.hash||'#home').slice(1); const id=['home','search','tree','settings','person','multi'].includes(s)?s:'home';
   if(id==='person'&&!CUR){ location.replace('#home'); return; }
   const prev=PREV; PREV=id;
   document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('on',x.id===id));
   closeLB(); if(id!=='tree')clearSel();
   if(id!=='tree'&&id!=='person'){UNLOCKED=false;PENDING=null;$('#treeBox').innerHTML='';$('#tf').value='';}
-  const back=prev==='person'&&(id==='search'||id==='tree');
+  const back=prev==='person'&&(id==='search'||id==='tree'||id==='multi');
   window.scrollTo(0,back?BACKSCROLL:0);
   if(id==='tree')showTree(back);
   $('#cm').classList.remove('on');
@@ -907,7 +957,7 @@ async function imgSrc(o){
   return o.u||null;
 }
 let FROM='search';
-function openPerson(r){ CUR=r; BACKSCROLL=window.scrollY; FROM=(location.hash==='#tree')?'tree':'search'; go('person'); }
+function openPerson(r){ CUR=r; BACKSCROLL=window.scrollY; FROM=(location.hash==='#tree')?'tree':(location.hash==='#multi')?'multi':'search'; go('person'); }
 function goBack(){ const h=location.hash; history.back(); setTimeout(()=>{ if(location.hash===h)location.hash=FROM; },300); }
 function closeModal(){}
 async function renderPerson(r){
@@ -981,7 +1031,7 @@ function renderCM(){
   const idx=CM.map((x,i)=>i).sort((a,b)=>{const ia=saved.indexOf(CM[a].l),ib=saved.indexOf(CM[b].l); if(ia<0&&ib<0)return a-b; if(ia<0)return 1; if(ib<0)return -1; return ia-ib;});
   $('#cmList').innerHTML=idx.map(i=>{const x=CM[i]; return '<label class="cm-row"><input type="checkbox" data-i="'+i+'"'+(sel.has(x.l)?' checked':'')+'><span class="tick"></span><span class="cm-t"><b>'+esc(x.l)+'</b>'+(x.v?'<small class="cv">'+esc(x.v)+'</small>':'')+'</span><span class="dh" aria-label="إعادة الترتيب"><i></i><i></i><i></i></span></label>';}).join('');
 }
-function updGo(){ const n=document.querySelectorAll('#cmList input:checked').length; const g=$('#cmGo'); g.textContent=n?((MULTI&&MULTI.mode==='xlsx'?'مشاركة ملف Excel (':'نسخ (')+n+')'):'اختر معلومة'; g.disabled=!n; g.style.opacity=n?1:.5; }
+function updGo(){ const n=document.querySelectorAll('#cmList input:checked').length; const g=$('#cmGo'); g.textContent=n?((MULTI&&/xlsx$/.test(MULTI.mode)?'مشاركة ملف Excel (':'نسخ (')+n+')'):'اختر معلومة'; g.disabled=!n; g.style.opacity=n?1:.5; }
 $('#bCopy').addEventListener('click',()=>{
   if(!CUR)return; MULTI=false; $('#cm').querySelector('h3').textContent='ما الذي تريد نسخه؟'; CM=copyItems(CUR); const sel=new Set(loadSel());
   renderCM();
@@ -997,13 +1047,30 @@ $('#cmList').addEventListener('change',updGo);
 $('#cmGo').addEventListener('click',()=>{
   const sel=[...document.querySelectorAll('#cmList input:checked')].map(c=>CM[+c.dataset.i]); if(!sel.length)return;
   try{localStorage.setItem('dalil_copysel',JSON.stringify(sel.map(x=>x.l)))}catch(e){}
+  if(MULTI&&MULTI.mode==='msxlsx'){
+    const M=MULTI; $('#cm').classList.remove('on'); MULTI=false;
+    const IDL='الرقم العسكري', cols=sel.map(s=>s.l).filter(l=>l!==IDL);
+    const head=[IDL,...cols,'الحالة'];
+    const rows=M.rows.map(o=>{ if(!o.r)return [o.x,...cols.map(()=>''),'ليس ضمن الأسماء']; const m=new Map(o.items.map(x=>[x.l,x.v])); return [o.r.id||o.x,...cols.map(l=>m.get(l)||''),'موجود']; });
+    shareXlsx(buildXlsx(head,rows)).then(r=>{ if(r==='shared')toast('تمت مشاركة الملف'); else if(r==='saved')toast('تم حفظ ملف Excel في التنزيلات'); });
+    return;
+  }
+  let v, msgT;
+  if(MULTI&&MULTI.mode==='mscopy'){
+    const M=MULTI;
+    v=M.rows.map(o=>{ if(!o.r)return 'الرقم العسكري: '+o.x+'\nليس ضمن الأسماء'; const m=new Map(o.items.map(x=>[x.l,x.v])); return sel.map(s=>s.l+': '+(m.get(s.l)||'')).join('\n'); }).join('\n\n');
+    msgT='تم نسخ '+M.rows.length+' أسماء';
+    const ok=()=>{ $('#cm').classList.remove('on'); MULTI=false; toast(msgT); };
+    const fb=()=>{const a=document.createElement('textarea');a.value=v;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy')?ok():toast('تعذّر النسخ')}catch(_){toast('تعذّر النسخ')}a.remove()};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok,fb); else fb();
+    return;
+  }
   if(MULTI&&MULTI.mode==='xlsx'){
     const M=MULTI; $('#cm').classList.remove('on'); MULTI=false;
     const head=sel.map(s=>s.l), rows=M.per.map(a=>{ const m=new Map(a.map(x=>[x.l,x.v])); return sel.map(s=>m.get(s.l)||''); });
     shareXlsx(buildXlsx(head,rows)).then(r=>{ if(r==='shared')toast('تمت مشاركة الملف'); else if(r==='saved')toast('تم حفظ ملف Excel في التنزيلات'); });
     return;
   }
-  let v, msgT;
   if(MULTI){ v=MULTI.per.map(a=>{ const m=new Map(a.map(x=>[x.l,x.v])); return sel.map(s=>s.l+': '+(m.get(s.l)||'')).join('\n'); }).join('\n\n'); msgT='تم نسخ '+MULTI.recs.length+' أسماء'; }
   else{ v=sel.map(x=>x.l+': '+x.v).join('\n'); msgT='تم نسخ '+sel.length+(sel.length>2?' معلومات':' معلومة'); }
   const ok=()=>{ $('#cm').classList.remove('on'); MULTI=false; toast(msgT); };
@@ -1052,6 +1119,49 @@ function openMulti(mode){
 $('#mGo').addEventListener('click',()=>{ if(SEL.length>MAXSEL){ $('#mNote').classList.remove('shake');void $('#mNote').offsetWidth;$('#mNote').classList.add('shake'); toast('لا يمكن النسخ لأكثر من '+MAXSEL+' أسماء'); return; } openMulti('copy'); });
 $('#mXl').addEventListener('click',()=>openMulti('xlsx'));
 
+
+
+/* ---------- multi search ---------- */
+function openMS(mode){
+  const rows=(window._mrows||[]).map(o=>({x:o.x,r:o.r,items:o.r?copyItems(o.r):[]}));
+  const found=rows.filter(o=>o.r); if(!found.length){ toast('لا توجد أسماء موجودة'); return; }
+  const labs=[]; found.forEach(o=>o.items.forEach(x=>{ if(!labs.includes(x.l))labs.push(x.l); }));
+  MULTI={recs:found.map(o=>o.r),rows,mode}; CM=labs.map(l=>({l,v:''}));
+  $('#cm').querySelector('h3').textContent=mode==='msxlsx'?'ما الأعمدة التي تريدها في ملف Excel؟':'ما المعلومات المطلوبة؟';
+  renderCM(); $('#cm').classList.add('on'); updGo();
+}
+function multiSearch(){
+  const raw=$('#mq').value; const seen=new Set(); const ids=[]; let dup=0;
+  raw.split(/[\s,،;؛]+/).forEach(x=>{ x=x.trim(); if(!x)return; const k=norm(x); if(!k)return; if(seen.has(k)){dup++;return} seen.add(k); ids.push([x,k]); });
+  const box=$('#mRes');
+  if(!ids.length){ box.innerHTML=''; return; }
+  if(ids.length>500){ box.innerHTML='<div class="emptyhint"><b>العدد كبير</b><span>الحد الأقصى 500 رقم في المرة الواحدة.</span></div>'; return; }
+  const map=new Map(); DB.records.forEach(r=>{ if(r._id&&!map.has(r._id))map.set(r._id,r); });
+  const rows=ids.map(([x,k])=>({x,r:map.get(k)||null})); window._mrows=rows;
+  const ok=rows.filter(o=>o.r).length;
+  box.innerHTML='<div class="msum"><span class="chip g">موجود: '+ok+'</span><span class="chip r">غير موجود: '+(rows.length-ok)+'</span><span class="chip">المجموع: '+rows.length+'</span>'+(dup?'<span class="chip">مكرر مُهمَل: '+dup+'</span>':'')+'</div>'+
+   '<div class="mlist">'+rows.map((o,i)=>o.r?
+     '<button class="mrow ok" data-i="'+i+'"><b class="mid" dir="ltr">'+esc(o.x)+'</b><span class="mt"><b>'+esc(o.r.name)+'</b>'+(o.r.job?'<small>'+esc(o.r.job)+'</small>':'')+'</span></button>':
+     '<div class="mrow no"><b class="mid" dir="ltr">'+esc(o.x)+'</b><span class="mt"><b>ليس ضمن الأسماء</b></span></div>').join('')+'</div>'+
+   '<div class="mact"><button class="btn3" id="mCopy">نسخ النتائج</button><button class="btn3" id="mSel">تحديد المعلومات المطلوبة</button><button class="btn3" id="mXls">تصدير Excel</button></div>';
+}
+let _mt; $('#mq').addEventListener('input',()=>{ clearTimeout(_mt); _mt=setTimeout(multiSearch,250); });
+$('#mRes').addEventListener('click',e=>{
+  const b=e.target.closest('.mrow.ok'); if(b){ openPerson(window._mrows[+b.dataset.i].r); return; }
+  if(e.target.id==='mSel'){ openMS('mscopy'); return; }
+  if(e.target.id==='mXls'){ openMS('msxlsx'); return; }
+  if(e.target.id==='mCopy'){
+    const v=(window._mrows||[]).map(o=>o.x+'\t'+(o.r?o.r.name+(o.r.job?'\t'+o.r.job:''):'ليس ضمن الأسماء')).join('\n');
+    const ok=()=>toast('تم نسخ النتائج');
+    const fb=()=>{const a=document.createElement('textarea');a.value=v;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy')?ok():toast('تعذّر النسخ')}catch(_){toast('تعذّر النسخ')}a.remove()};
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok,fb); else fb();
+  }
+});
+$('#mClear').addEventListener('click',()=>{ $('#mq').value=''; $('#mRes').innerHTML=''; window._mrows=[]; $('#mq').focus(); });
+$('#mPaste').addEventListener('click',async()=>{
+  try{ const s=await Promise.race([navigator.clipboard.readText(),new Promise((_,j)=>setTimeout(j,2500))]); if(s){ const q=$('#mq'); q.value=(q.value?q.value.replace(/\s+$/,'')+'\n':'')+s; multiSearch(); return; } }catch(_){}
+  $('#mq').focus(); toast('اضغط مطوّلاً داخل المربع ثم اختر «لصق»');
+});
 /* ---------- drag-reorder in copy menu ---------- */
 (function(){
   const list=$('#cmList'); let row=null, sy=0;
@@ -1079,7 +1189,9 @@ $('#mXl').addEventListener('click',()=>openMulti('xlsx'));
 })();
 /* ---------- features sheet ---------- */
 const FEATS=[
- ['الأمان وخصوصية البيانات','تُخزَّن قاعدة البيانات داخل ذاكرة المتصفح على الجهاز الذي استوردها فحسب، ولا تُرفع إلى أي خادم ولا تُرسَل عبر الشبكة؛ فالتطبيق يعمل دون اتصال، ولا يجري إلا فحصاً لرقم الإصدار لا تُنقَل فيه أي بيانات. ونتيجةً لذلك لا يمكن الاطّلاع على محتوى القاعدة من جهازٍ آخر ما لم يُستورَد إليه ملف Excel نفسه. ويُحمى عرض الهيكلية برمز دخول، وهو حاجزٌ استخدامي لا يغني عن حماية الجهاز بقفل الشاشة. وتبقى المعلومات التي يُصدِّرها المستخدم بالنسخ أو بملف Excel تحت مسؤوليته بعد خروجها من التطبيق.'],
+ ['البحث المتعدّد','إدخال قائمة من الأرقام العسكرية (رقم في كل سطر) والتحقق منها دفعةً واحدة؛ فيُعرض لكل رقمٍ اسم صاحبه ومسمّاه الوظيفي إن وُجد، وإلا يُبيَّن أنه «ليس ضمن الأسماء»، مع ملخّصٍ عددي وإمكانية نسخ النتائج.'],
+ ['الاستيراد من رابط','إمكانية استيراد قاعدة البيانات من رابط مشاركة OneDrive بدلاً من الملف المحلي، على أن يقتصر الاتصال بالشبكة على لحظة الاستيراد، ثم تُحفظ البيانات محلياً.'],
+ ['الأمان وخصوصية البيانات','تُخزَّن قاعدة البيانات داخل ذاكرة المتصفح على الجهاز الذي استوردها فحسب، ولا تُرفع إلى أي خادم ولا تُرسَل عبر الشبكة؛ فالتطبيق يعمل دون اتصال، ولا يجري إلا فحصاً لرقم الإصدار لا تُنقَل فيه أي بيانات، إضافةً إلى جلب الملف من الرابط حين يطلب المستخدم ذلك صراحةً. ونتيجةً لذلك لا يمكن الاطّلاع على محتوى القاعدة من جهازٍ آخر ما لم يُستورَد إليه ملف Excel نفسه. ويُحمى عرض الهيكلية برمز دخول، وهو حاجزٌ استخدامي لا يغني عن حماية الجهاز بقفل الشاشة. وتبقى المعلومات التي يُصدِّرها المستخدم بالنسخ أو بملف Excel تحت مسؤوليته بعد خروجها من التطبيق.'],
  ['الاسترجاع المعلوماتي','بحثٌ مرن بالرقم العسكري أو بالاسم الكامل أو الجزئي، مع تطبيع إملائي للحروف العربية (الهمزات، الياء والألف المقصورة، التاء المربوطة، الأرقام الهندية)، وترتيب النتائج بحسب درجة المطابقة.'],
  ['قاعدة بيانات محلية','تُستورد البيانات من ملف Excel مرةً واحدة وتُحفَظ داخل الجهاز دون خادم، فتعمل المنظومة دون اتصال بالشبكة، وتبقى المعلومات تحت سيطرة المستخدم وحده.'],
  ['التمثيل الهرمي','عرضٌ شجري متعدّد المستويات للتشكيل التنظيمي، مع صور مصغّرة للأفراد ومرشِّح بحثي، وحمايةٌ برمز دخول لواجهة الهيكلية.'],
@@ -1091,6 +1203,7 @@ const FEATS=[
  ['التفاعل البصري','تصميمٌ فاتح بزخرفة نجمية إسلامية وخطوط ذهبية، وتغذيةٌ راجعة هادئة عند الضغط على العناصر، وإشعاراتٌ موجزة.']
 ];
 const HIST=[
+ ['5.0',['إتاحة تحديد المعلومات المطلوبة لنتائج البحث المتعدّد ونسخها أو تصديرها إلى ملف Excel مع بيان حالة كل رقم في عمودٍ مستقل، ويُدمَج الرقم المُدخَل في عمود «الرقم العسكري».','استحداث «البحث المتعدّد»: لصق قائمة أرقام عسكرية وعرض اسم صاحب كل رقم ومسمّاه الوظيفي، أو بيان أنه ليس ضمن الأسماء، مع ملخّصٍ عددي ونسخٍ للنتائج.','إتاحة استيراد قاعدة البيانات من رابط مشاركة OneDrive إلى جانب ملف Excel المحلي.']],
  ['4.9',['إضافة فقرة «الأمان وخصوصية البيانات» إلى وصف التطبيق.','توضيح أثر إعادة ترتيب الحقول: رفع الصف المسحوب وإبراز إطاره، وتعتيم بقية الصفوف، وانسيابٍ حركي عند تبادل المواضع، واهتزازٍ خفيف عند كل تبديل.']],
  ['4.8',['إتاحة إعادة ترتيب الحقول المراد نسخها أو تصديرها بالسحب من المقبض (ثلاثة خطوط) على يسار كل حقل، فيتبع النسخ النصّي وأعمدة ملف Excel الترتيبَ المعتمَد.','حفظ ترتيب الحقول المختارة لاستعادته في الاستخدام اللاحق.','عرض جميع بنود سجلّ الإصدارات مفصّلةً دون طيّ.']],
  ['4.7',['إتاحة تحديد ما يزيد على عشرة أفراد (حتى 300) لأغراض التصدير إلى ملف Excel.','حصر النسخ النصّي بعشرة أفراد، مع تنبيهٍ توضيحي عند تجاوز هذا الحد.','توحيد النمط البصري لزرّي التحقق من التحديثات ومميزات التطبيق.']],
@@ -1258,15 +1371,47 @@ $('#tf').addEventListener('input',e=>renderTree(e.target.value));
 /* ---------- settings ---------- */
 function msg(t,type){const m=$('#msg');m.className='msg '+type;m.textContent=t}
 $('#pick').addEventListener('click',()=>$('#file').click());
-$('#file').addEventListener('change',async e=>{
-  const f=e.target.files[0]; if(!f)return;
+async function importBuffer(buf,name){
   msg('جارٍ قراءة الملف…','ok');
   try{
-    const {db:d,blobs}=await buildDB(await readWorkbook(await f.arrayBuffer()),f.name,n=>msg('جارٍ قراءة الملف… '+n+' سجل','ok'));
+    const {db:d,blobs}=await buildDB(await readWorkbook(buf),name,n=>msg('جارٍ قراءة الملف… '+n+' سجل','ok'));
     const persisted=await saveDB(d,blobs); setDB(d); $('#q').value=''; $('#result').innerHTML='';
-    msg('تم استبدال القاعدة القديمة بـ «'+f.name+'» ('+d.records.length+' سجل'+(d.photos?'، '+d.photos+' صورة شخصية':'')+(d.accts?'، '+d.accts+' صورة حساب':'')+').'+(persisted?'':' تنبيه: تعذّر حفظها دائماً على هذا المتصفح وستبقى حتى تغلق الصفحة.'),'ok');
-  }catch(err){ msg(err.message||'تعذّرت قراءة الملف','err'); }
-  e.target.value='';
+    msg('تم استبدال القاعدة القديمة بـ «'+name+'» ('+d.records.length+' سجل'+(d.photos?'، '+d.photos+' صورة شخصية':'')+(d.accts?'، '+d.accts+' صورة حساب':'')+').'+(persisted?'':' تنبيه: تعذّر حفظها دائماً على هذا المتصفح.'),'ok');
+    return true;
+  }catch(err){ msg(err.message||'تعذّرت قراءة الملف','err'); return false; }
+}
+$('#file').addEventListener('change',async e=>{
+  const f=e.target.files[0]; if(!f)return;
+  await importBuffer(await f.arrayBuffer(),f.name); e.target.value='';
+});
+/* ---------- import from OneDrive link ---------- */
+const b64u=s=>btoa(unescape(encodeURIComponent(s))).replace(/=+$/,'').replace(/\//g,'_').replace(/\+/g,'-');
+async function fetchWorkbook(u){
+  let url=u.trim(); if(!/^https?:\/\//i.test(url))url='https://'+url;
+  const tries=[], notes=[];
+  const isZip=buf=>{const h=new Uint8Array(buf.slice(0,2));return h[0]===0x50&&h[1]===0x4B};
+  const grab=async(label,fn)=>{ try{ const buf=await fn(); if(buf&&isZip(buf))return buf; notes.push(label+': ليس ملف xlsx'); }catch(e){ notes.push(label+': '+(e.message||'تعذّر الاتصال')); } return null; };
+  const get=async(link,opt)=>{ const r=await fetch(link,Object.assign({redirect:'follow',cache:'no-store'},opt||{})); if(!r.ok)throw new Error('HTTP '+r.status); return r.arrayBuffer(); };
+  const api='https://api.onedrive.com/v1.0/shares/u!'+b64u(url);
+  // 1) direct download URL from the shares API (CORS friendly)
+  let buf=await grab('الطريقة 1',async()=>{
+    const r=await fetch(api+'/driveItem?select=@content.downloadUrl,@microsoft.graph.downloadUrl',{cache:'no-store'}); if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json(); const d=j['@content.downloadUrl']||j['@microsoft.graph.downloadUrl']; if(!d)throw new Error('لا يوجد رابط تنزيل');
+    return get(d);
+  }); if(buf)return buf;
+  buf=await grab('الطريقة 2',()=>get(api+'/root/content')); if(buf)return buf;
+  try{ const x=new URL(url); x.searchParams.set('download','1'); buf=await grab('الطريقة 3',()=>get(x.toString())); if(buf)return buf; }catch(_){}
+  throw new Error('تعذّر جلب الملف من الرابط. ('+notes.join(' | ')+') — غالباً تمنع OneDrive القراءة من المتصفح مباشرةً. الحل المضمون: نزِّل الملف من OneDrive ثم اضغط «اختيار ملف إكسل» واختره من التنزيلات.');
+}
+try{ $('#lnk').value=localStorage.getItem('dalil_link')||''; }catch(_){}
+$('#lnkGo').addEventListener('click',async()=>{
+  const u=$('#lnk').value.trim(); if(!u){ msg('الصق رابط الملف أولاً','err'); return; }
+  const b=$('#lnkGo'); b.disabled=true; msg('جارٍ جلب الملف من الرابط…','ok');
+  try{
+    const buf=await fetchWorkbook(u);
+    if(await importBuffer(buf,'ملف OneDrive')){ try{localStorage.setItem('dalil_link',u)}catch(_){} }
+  }catch(err){ msg(err.message,'err'); }
+  b.disabled=false;
 });
 if(!DEFAULT_DB.records.length)$('#reset').textContent='حذف قاعدة البيانات الحالية';
 let rstArm=0;
@@ -1281,6 +1426,9 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 
 
 
+
+/* close (x) on all bottom sheets */
+document.querySelectorAll('.cm-sheet').forEach(s=>{ const b=document.createElement('button'); b.type='button'; b.className='cm-x'; b.setAttribute('aria-label','إغلاق'); b.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'; b.addEventListener('click',e=>{ e.stopPropagation(); s.parentElement.classList.remove('on'); }); s.insertBefore(b,s.firstChild); });
 /* sparkles */
 (function(){ const m=document.getElementById('magic'); if(!m)return; let s=7;
   const rnd=()=>{s=(s*9301+49297)%233280;return s/233280};
@@ -1289,8 +1437,8 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
     m.appendChild(e); } })();
 
 /* ---------- updates ---------- */
-const VERSION='4.9';
-const CHANGES={'4.9':['أُضيفت فقرة «الأمان وخصوصية البيانات» إلى وصف التطبيق.','عُزِّز وضوح أثر إعادة ترتيب الحقول المراد نسخها أو تصديرها.']};
+const VERSION='5.0';
+const CHANGES={'5.0':['استُحدث «البحث المتعدّد» للتحقق من قائمة أرقام عسكرية دفعةً واحدة وعرض الأسماء والمسمّيات المقابلة لها.','أُتيح استيراد قاعدة البيانات من رابط مشاركة OneDrive.','أُتيح في البحث المتعدّد تحديد المعلومات المطلوبة ونسخها أو تصديرها إلى Excel.','أُضيفت علامة (×) لإغلاق جميع القوائم المنسدلة.']};
 const verCmp=(a,b)=>{const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0};
 let lastCheck=0;
 async function checkUpdate(manual){
