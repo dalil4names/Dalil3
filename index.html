@@ -508,6 +508,9 @@ button.tap{animation:tapgold .6s cubic-bezier(.2,.7,.3,1)!important}
 .cm-x{position:absolute;top:14px;left:14px;width:38px;height:38px;border-radius:50%;background:#fff;border:1.5px solid #d8b46a;color:#7a5a16;display:grid;place-items:center;padding:0;z-index:3}
 .cm-x svg{width:18px;height:18px;stroke:#7a5a16;stroke-width:2.4;fill:none;stroke-linecap:round}
 .cm-sheet h3{padding-left:52px}
+.sn{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
+.sn small{font-size:11.5px;color:var(--mut);font-weight:600}
+.sn.ph{color:#9a8a68;font-style:italic}
 </style>
 <meta name="app-version" content="5.0">
 <link rel="manifest" href="manifest.json">
@@ -1334,7 +1337,19 @@ $('#pasteBtn').addEventListener('click',pasteNow);
 $('#q').addEventListener('paste',e=>{ const t=(e.clipboardData||window.clipboardData).getData('text'); if(t){e.preventDefault();$('#q').value=t.trim();doSearch(true);} });
 
 /* ---------- tree ---------- */
+/* levels: each value keeps its own level position; gaps become placeholders */
+function lvlNum(r,i){ const m=/\d+/.exec((r.pl&&r.pl[i])||''); return m?+m[0]:i+2; }
+let MINLV=2;
+function calcMinLv(){ let m=99; for(const r of DB.records)(r.path||[]).forEach((p,i)=>{ const n=lvlNum(r,i); if(n<m)m=n; }); MINLV=m===99?2:m; }
+function levelSeq(r){
+  const by=new Map(); (r.path||[]).forEach((p,i)=>by.set(lvlNum(r,i),p));
+  if(!by.size)return [];
+  const mx=Math.max(...by.keys()), out=[];
+  for(let n=MINLV;n<=mx;n++){ const v=by.get(n); out.push({k:n+'|'+(v||''),v:v||'غير محدد',l:'المستوى '+n,ph:!v}); }
+  return out;
+}
 function renderTree(filter){
+  calcMinLv();
   const f=nameNorm(filter||''), box=$('#treeBox');
   const recs=DB.records.filter(r=>!f||nameNorm(r.name+' '+r.id+' '+r.job).includes(f));
   if(!recs.length){box.innerHTML='<div class="empty">'+(DB.records.length?'لا توجد نتائج':'لا توجد بيانات. أضف قاعدة بيانات من الإعدادات.')+'</div>';return}
@@ -1342,7 +1357,7 @@ function renderTree(filter){
   for(const r of recs){
     if(!roots.has(r.sheet))roots.set(r.sheet,{kids:new Map(),people:[],n:0});
     let node=roots.get(r.sheet); node.n++;
-    for(const p of r.path){ if(!node.kids.has(p))node.kids.set(p,{kids:new Map(),people:[],n:0}); node=node.kids.get(p); node.n++; }
+    for(const s of levelSeq(r)){ if(!node.kids.has(s.k))node.kids.set(s.k,{kids:new Map(),people:[],n:0,v:s.v,l:s.l,ph:s.ph}); node=node.kids.get(s.k); node.n++; }
     node.people.push(r);
   }
   window._people=recs;
@@ -1351,7 +1366,7 @@ function renderTree(filter){
     let h='';
     if(node.people.length) h+='<div class="kids">'+node.people.map(person).join('')+'</div>';
     for(const [name,ch] of node.kids){
-      h+='<details'+(f?' open':'')+'><summary>'+esc(name)+'<span class="cnt">'+ch.n+'</span></summary>'+draw(ch,depth+1)+'</details>';
+      h+='<details'+(f?' open':'')+'><summary><span class="sn'+(ch.ph?' ph':'')+'">'+esc(ch.v)+'<small>'+esc(ch.l)+'</small></span><span class="cnt">'+ch.n+'</span></summary>'+draw(ch,depth+1)+'</details>';
     }
     return h;
   };
