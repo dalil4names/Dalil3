@@ -638,13 +638,19 @@ function idb(){ if(_db)return _db; return _db=new Promise((res,rej)=>{const q=in
   q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains('kv'))d.createObjectStore('kv');if(!d.objectStoreNames.contains('img'))d.createObjectStore('img')};
   q.onsuccess=()=>res(q.result);q.onerror=()=>{_db=null;rej(q.error)}})}
 async function idbRun(stores,mode,fn){const d=await idb();return new Promise((res,rej)=>{const tx=d.transaction(stores,mode);let out;try{out=fn(...stores.map(s=>tx.objectStore(s)))}catch(e){rej(e);return}tx.oncomplete=()=>res(out&&out.result);tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error)})}
+let PERSISTED=null;
+async function askPersist(){
+  try{ if(navigator.storage&&navigator.storage.persisted){ PERSISTED=await navigator.storage.persisted(); if(!PERSISTED&&navigator.storage.persist)PERSISTED=await navigator.storage.persist(); } }catch(e){}
+  try{ if(typeof renderStat==='function'&&DB)renderStat(); }catch(e){}
+  return PERSISTED;
+}
 async function loadDB(){
   try{const d=await idbRun(['kv'],'readonly',s=>s.get(KEY)); if(d&&d.records)return d;}catch(e){}
   try{const r=localStorage.getItem(KEY); if(r){const d=JSON.parse(r); if(d&&d.records)return d;}}catch(e){}
   return memStore||DEFAULT_DB;
 }
 async function saveDB(d,blobs){
-  memStore=d;
+  memStore=d; askPersist();
   try{await idbRun(['kv','img'],'readwrite',(kv,im)=>{im.clear();(blobs||[]).forEach(b=>im.put(b.blob,b.key));return kv.put(d,KEY)});try{localStorage.removeItem(KEY)}catch(e){}return true}catch(e){return false}
 }
 async function clearDB(){memStore=null;try{await idbRun(['kv','img'],'readwrite',(kv,im)=>{im.clear();return kv.delete(KEY)})}catch(e){}try{localStorage.removeItem(KEY)}catch(e){}}
@@ -881,6 +887,7 @@ function renderFoot(){ if(!DB.records.length){ $('#homeFoot').innerHTML='<div cl
 function renderStat(){
   $('#dbStat').innerHTML=
    '<div class="stat"><span>الملف</span><span>'+esc(DB.name)+'</span></div>'+
+   '<div class="stat"><span>حماية التخزين</span><span>'+(PERSISTED===true?'مفعّلة ✓':PERSISTED===false?'غير مفعّلة — ثبّت التطبيق على الشاشة الرئيسية':'غير معروفة')+'</span></div>'+
    '<div class="stat"><span>عدد السجلات</span><span>'+DB.records.length+'</span></div>'+
    (levelStats().length?'<div class="stat lvs"><span>المستويات المقروءة</span><span>'+levelStats().map(x=>'المستوى '+x.n+': '+x.c+' قيمة ('+esc(x.s.join('، '))+(x.c>3?'…':'')+')').join('<br>')+'</span></div>':'')+
    (DB.photos?'<div class="stat"><span>الصور الشخصية</span><span>'+DB.photos+'</span></div>':'')+(DB.accts?'<div class="stat"><span>سجلات فيها صور حساب</span><span>'+DB.accts+'</span></div>':'')+'<div class="stat"><span>الأوراق</span><span style="text-align:left;max-width:60%">'+esc(((DB.sheets||[]).join('، ')||'—'))+'</span></div>'+
@@ -1206,7 +1213,7 @@ const FEATS=[
  ['التفاعل البصري','تصميمٌ فاتح بزخرفة نجمية إسلامية وخطوط ذهبية، وتغذيةٌ راجعة هادئة عند الضغط على العناصر، وإشعاراتٌ موجزة.']
 ];
 const HIST=[
- ['5.0',['إعادة بناء الهيكلية على أعمدة المستويات وحدها: تُنسَب كل قيمة إلى مستوى العمود الذي وردت فيه فحسب، وتبدأ الشجرة من أصغر مستوى موجود في الملف، ولا يُستنتج أي مستوى من خارج الأعمدة، مع إظهار المستويات المقروءة في الإعدادات للتحقق.','إتاحة تحديد المعلومات المطلوبة لنتائج البحث المتعدّد ونسخها أو تصديرها إلى ملف Excel مع بيان حالة كل رقم في عمودٍ مستقل، ويُدمَج الرقم المُدخَل في عمود «الرقم العسكري».','استحداث «البحث المتعدّد»: لصق قائمة أرقام عسكرية وعرض اسم صاحب كل رقم ومسمّاه الوظيفي، أو بيان أنه ليس ضمن الأسماء، مع ملخّصٍ عددي ونسخٍ للنتائج.']],
+ ['5.0',['طلب حماية التخزين الدائم من المتصفح لتقليل احتمال حذف قاعدة البيانات تلقائياً، وإظهار حالتها في الإعدادات.','إعادة بناء الهيكلية على أعمدة المستويات وحدها: تُنسَب كل قيمة إلى مستوى العمود الذي وردت فيه فحسب، وتبدأ الشجرة من أصغر مستوى موجود في الملف، ولا يُستنتج أي مستوى من خارج الأعمدة، مع إظهار المستويات المقروءة في الإعدادات للتحقق.','إتاحة تحديد المعلومات المطلوبة لنتائج البحث المتعدّد ونسخها أو تصديرها إلى ملف Excel مع بيان حالة كل رقم في عمودٍ مستقل، ويُدمَج الرقم المُدخَل في عمود «الرقم العسكري».','استحداث «البحث المتعدّد»: لصق قائمة أرقام عسكرية وعرض اسم صاحب كل رقم ومسمّاه الوظيفي، أو بيان أنه ليس ضمن الأسماء، مع ملخّصٍ عددي ونسخٍ للنتائج.']],
  ['4.9',['إضافة فقرة «الأمان وخصوصية البيانات» إلى وصف التطبيق.','توضيح أثر إعادة ترتيب الحقول: رفع الصف المسحوب وإبراز إطاره، وتعتيم بقية الصفوف، وانسيابٍ حركي عند تبادل المواضع، واهتزازٍ خفيف عند كل تبديل.']],
  ['4.8',['إتاحة إعادة ترتيب الحقول المراد نسخها أو تصديرها بالسحب من المقبض (ثلاثة خطوط) على يسار كل حقل، فيتبع النسخ النصّي وأعمدة ملف Excel الترتيبَ المعتمَد.','حفظ ترتيب الحقول المختارة لاستعادته في الاستخدام اللاحق.','عرض جميع بنود سجلّ الإصدارات مفصّلةً دون طيّ.']],
  ['4.7',['إتاحة تحديد ما يزيد على عشرة أفراد (حتى 300) لأغراض التصدير إلى ملف Excel.','حصر النسخ النصّي بعشرة أفراد، مع تنبيهٍ توضيحي عند تجاوز هذا الحد.','توحيد النمط البصري لزرّي التحقق من التحديثات ومميزات التطبيق.']],
@@ -1451,7 +1458,7 @@ $('#wn').addEventListener('click',e=>{ if(e.target.id==='wn')$('#wn').classList.
   try{localStorage.setItem('dalil_ver',VERSION)}catch(e){}
   if(last&&last!==VERSION&&CHANGES[VERSION]){ $('#wnT').textContent='تم التحديث إلى الإصدار '+VERSION; $('#wnL').innerHTML=CHANGES[VERSION].map(x=>'<li>'+esc(x)+'</li>').join(''); setTimeout(()=>$('#wn').classList.add('on'),900); } })();
 if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){ addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
-loadDB().then(d=>{setDB(d);show()});
+loadDB().then(d=>{setDB(d);show();askPersist()});
 </script>
 </body>
 </html>
